@@ -1,0 +1,77 @@
+{% extends "owners/base.html" %}
+{% block ownerprofile %}
+{% if user.is_authenticated %}
+<div class="container card_box_1 mt-5">
+    <div class="card-header">
+        <h5>Edit Profile</h5>
+    </div>
+    <div class="container pt-2">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message|safe }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+    <div class="reg_form ps-4 pe-4">
+        <form class="row g-3" method="POST">
+
+            {% csrf_token %}
+            {% if user.is_authenticated %}
+            <div class="col-md-4">
+                <label class="mb-2 fw-medium">Full Name</label>
+                <div class="input-group mb-2">
+                    <p>{{ request.user.get_full_name|title }}</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="mb-2 fw-medium">Phone No.</label>
+                <div class="input-group mb-2">
+                    <p>{{ request.user.username }}</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="mb-2 fw-medium">Joining Date</label>
+                <div class="input-group mb-2">
+                    <p>{{ request.user.date_joined|date }}</p>
+                </div>
+            </div>
+            {% endif %}
+            
+            <div class="col-md-6">
+                <label class="mb-2 fw-medium">Aadhaar No. (Do not use space, ',' or '-')</label>
+                <input type="text" name="aadhaar" value="{{ owner.owner_aadhaar|safe }}" class="form-control" placeholder="245678925421" required />
+            </div>
+            <div class="col-md-6">
+                <label class="mb-2 fw-medium">PAN No.</label>
+                <input type="text" name="pan" value="{{ owner.owner_pan|safe|upper }}" class="form-control" placeholder="YTIOP3601Q" required />
+            </div>
+            <div class="col-md-4">
+                <label class="mb-2 fw-medium">Enter State</label>
+                <input type="text" name="state" value="{{ owner.owner_state|safe|title }}" class="form-control" placeholder="West Bengal" required />
+            </div>
+            <div class="col-md-4">
+                <label class="mb-2 fw-medium">Enter City</label>
+                <input type="text" name="city" value="{{ owner.owner_city|safe|title }}" class="form-control" placeholder="Kolkata" required />
+            </div>
+            <div class="col-md-4">
+                <label class="mb-2 fw-medium">Enter PIN Code</label>
+                <input type="text" name="pin" value="{{ owner.owner_pin|safe }}" class="form-control" placeholder="700171" required />
+            </div>
+            <div class="col-md-12">
+                <label class="mb-2 fw-medium">Enter Full Address</label>
+                <textarea name="address" class="form-control"
+                    placeholder="Street Number 1, BP Block, Sector V, Bidhannagar"
+                    style="width: 100%; height: 100px; resize: none;" required>{{ owner.owner_address|safe|capfirst }}</textarea>
+            </div>
+
+            <div class="col-12">
+                <button class="btn mybtn" type="submit">Update Profile</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endif %}
+{% endblock ownerprofile %}

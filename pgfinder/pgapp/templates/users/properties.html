@@ -1,0 +1,130 @@
+{% extends 'users/base.html' %}
+{% load static %}
+{% block properties %}
+<!-- breadcrumb -->
+    <div class="container-fluid mt-5 mb-0 bg-white p-1 rounded breadcrumb_area">
+        <h1 class="breadcrumb_head">Properties</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Properties</li>
+            </ol>
+          </nav>
+    </div>
+    
+    <!-- body -->
+    <section class="section prop_section pt-3 mb-5">
+        <div class="container availability-form">
+            <div class="row mt-5">
+                <span class="heading">
+                    <h2 class="text-center fw-500 h-font">
+                        <i class="fa-solid fa-house-circle-check"></i> Find Your Desired PG
+                    </h2>
+                </span>
+                <div class="col-lg-12 filter_panel bg-white py-3 px-5 rounded">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="row align-items-end">
+                            <div class="col-lg-3 col-md-3 mb-5">
+                                <label class="form-label fw-medium">Gender</label>
+                                <select class="form-select shadow-none cursor-pointer" required>
+                                    <option selected disabled>-- Select Option --</option>
+                                    <option value="male">MALE</option>
+                                    <option value="female">FEMALE</option>
+                                </select>
+                                
+                            </div>
+                            <div class="col-lg-3 col-md-3 mb-5">
+                                <label class="form-label fw-medium">Location</label>
+                                <select class="form-select shadow-none cursor-pointer" required>
+                                    <option selected disabled>-- Open to select --</option>
+                                    {% for p in props %}
+                                        {% for pl in p.propLocation %}
+                                        <option value="{{ pl }}">{{ pl|title }}</option>
+                                        
+                                        {% endfor %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            
+                            <div class="col-lg-3 col-md-3 mb-5">
+                                <label for="price_range" class="form-label fw-medium">Price Range</label>
+                                <div class="form-check mx-3">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                        id="flexRadioDefault1" checked>
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        <i class="fa-solid fa-indian-rupee-sign"></i> 5,000
+                                        to
+                                        <i class="fa-solid fa-indian-rupee-sign"></i> 10,000
+                                    </label>
+                                </div>
+                                <div class="form-check mx-3">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                        id="flexRadioDefault2">
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        <i class="fa-solid fa-indian-rupee-sign"></i> 10,001
+                                        to
+                                        <i class="fa-solid fa-indian-rupee-sign"></i> 15,000
+                                    </label>
+                                </div>
+                                <div class="form-check mx-3">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                        id="flexRadioDefault3">
+                                    <label class="form-check-label" for="flexRadioDefault3">
+                                        <i class="fa-solid fa-indian-rupee-sign"></i> 15,001
+                                        to
+                                        <i class="fa-solid fa-indian-rupee-sign"></i> 20,000
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 mb-5 d-grid gap-2">
+                                <button type="submit" class="btn mybtn btn-sm">
+                                    <i class="fa-brands fa-sistrix"></i> Filter Result
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!--Our Rooms-->
+                <div class="col-lg-12 mb-5">
+                    <div class="row">
+                        
+                        {% if prop %}
+                        {% for p in prop %}
+                            <div class="col-lg-3 col-md-6 mt-5">
+                                <div class="card custom_card shadow" onclick="window.location='{{ p.prop_slug }}'">
+                                    <img src="{{p.prop_img.url}}" class="card-img-top" alt="prop_image" />
+                                    <div class="card-body">
+                                        <h5 class="card-title theme_color">{{ p.prop_name|title|truncatechars:20 }}</h5>
+                                        <h6 class="fw-normal text-primary-emphasis"><i class="fa-solid fa-location-dot"></i> {{p.prop_location|title}}</h6>
+                                        <p class="text-danger-emphasis fw-medium">
+                                            <i class="fa-solid fa-indian-rupee-sign"></i> {{ p.prop_price }} / month
+                                        </p>
+                                        <p>
+                                            {% for fac in p.facList %}
+                                                <span class="badge text-bg-success badge-sm fw-normal">{{fac|title}}</span>
+                                            {% endfor %}
+                                            <br/>
+                                            {% for pg in p.propGen %}
+                                                <span class="badge text-bg-dark badge-sm fw-normal">{{pg|upper}}</span>
+                                            {% endfor %}
+                                        </p>
+                                        <p class="card-text card_details">
+                                            {{p.prop_details|safe|truncatechars:80}}
+                                        </p>
+                                        {% comment %} <a href="properties/{{ p.prop_slug }}" class="btn mybtn btn-sm w-100">
+                                            More Details <i class="fa-solid fa-arrow-right-long"></i>
+                                            </a> {% endcomment %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        {% endif %}
+                        
+                    </div>
+                </div>
+            </div>
+            <br/>
+        </div>
+    </section>
+{% endblock properties %}

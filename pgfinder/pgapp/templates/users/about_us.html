@@ -1,0 +1,34 @@
+{% extends 'users/base.html' %}
+{% load static %}
+{% block about %}
+<!-- breadcrumb -->
+<div class="container-fluid mt-5 bg-white p-1 rounded breadcrumb_area">
+    <h1 class="breadcrumb_head">{{nav}}</h1>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">About Us</li>
+        </ol>
+    </nav>
+</div>   
+<section class="container-fluid">
+    <div class="row">
+        <div class="col-lg-6 col-md-6">
+            <p class="about_txt">
+                <span class="first-letter">L</span>orem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut pharetra sit amet aliquam id diam. Ac
+                turpis egestas sed tempus urna et. Sapien pellentesque habitant morbi tristique senectus et netus et
+                malesuada. Nullam eget felis eget nunc lobortis mattis aliquam faucibus purus. In nisl nisi
+                scelerisque eu ultrices. Vitae tempus quam pellentesque nec nam aliquam sem et. Ante metus dictum at
+                tempor commodo ullamcorper. Aliquet sagittis id consectetur purus ut. Sit amet consectetur
+                adipiscing elit ut aliquam purus. Purus semper eget duis at tellus at urna condimentum mattis. Enim
+                praesent elementum facilisis leo vel fringilla est ullamcorper eget. Etiam sit amet nisl purus in
+                mollis nunc.
+            </p>
+        </div>
+        <div class="col-lg-6 col-md-6">
+            <img src="{% static './img/human.jpg' %}" class="about_img img-fluid" alt="AboutUs" />
+        </div>
+    </div>
+</section>
+{% endblock about %}

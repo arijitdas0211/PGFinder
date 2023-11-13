@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Property Holder Authentication | PGFinder</title>
+    <link rel="icon" href="{% static './img/favicon.png' %}" type="image/icon" />
+    <link rel="stylesheet" href="{% static "./css/bootstrap.min.css" %}" />
+    <link rel="stylesheet" href="{% static "./css/style.css" %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+</head>
+
+<body>
+    <div class="card auth_card container p-2">
+        <div class="card-header text-center">
+            <img class="logo img-fluid" src="{% static "./img/logo1.png" %}" alt="Logo" />
+        </div>
+        <h4 class="text-center pt-3 text-danger-emphasis"><i class="fa-solid fa-building-user"></i> Property Holder</h4>
+        <hr />
+        <div class="card-body container">
+            <div class="container">
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message|safe }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+            <div class="row">
+                <!-- Login Form -->
+                <div class="login_form col-lg-5 col-md-5 ps-4 pe-4">
+                    <form class="row g-3" method='POST'>
+                        {% csrf_token %}
+                        <input type="hidden" name="form_type" value="loginForm" />
+                        <div class="col-12">
+                            <h5 class="text-success">Already Registered? Login Now...</h5>
+                            <hr />
+                        </div>
+                        <div class="col-md-12">
+                            <label class="mb-2 fw-medium" for="ownermob">Registered Mobile No.</label>
+                            <div class="input-group mb-2">
+                                <span class="input-group-text"><i class="fa-solid fa-phone"></i></span>
+                                <input type="number" id="ownermob" name="phone" class="form-control" aria-label="Registered Mobile No." required />
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="mb-2 fw-medium" for="password">Enter Password</label>
+                            <div class="input-group mb-2">
+                                <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
+                                <input type="password" id="password" name="password" class="form-control" aria-label="User Password" required />
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <button class="btn mybtn" type="submit">Login Now <i class="fa-solid fa-arrow-right-to-bracket"></i></button>
+                        </div>
+                        {% comment %} Home URL {% endcomment %}
+                        <div class="col-md-12 mt-5">
+                            <a type="button" class="btn mybtn btn-sm" href="{% url "home" %}">
+                                <i class="fa-solid fa-arrow-left-long"></i> Go back to main site
+                            </a>
+                        </div>
+                    </form>
+                </div>
+                <!-- End of Login Form -->
+                <!-- Registration Form -->
+                <div class="reg_form col-lg-7 col-md-7 ps-4 pe-4">
+                    <form class="row g-3" method='POST'>
+                        <div class="col-12">
+                            <h5 class="text-danger">New member? Register Now...</h5>
+                            <hr />
+                        </div>
+                        {% csrf_token %}
+                        <input type="hidden" name="form_type" value="registerForm" />
+                        <div class="col-md-6">
+                            <label class="mb-2 fw-medium" for="first_name">First Name</label>
+                            <div class="input-group mb-2">
+                                <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
+                                <input type="text" id="first_name" name="fname" class="form-control" required />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="mb-2 fw-medium" for="last_name">Last Name</label>
+                            <div class="input-group mb-2">
+                                <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
+                                <input type="text" id="last_name" name="lname" class="form-control" required />
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="mb-2 fw-medium" for="phone">Phone No.</label>
+                            <div class="input-group mb-2">
+                                <span class="input-group-text"><i class="fa-solid fa-phone"></i></span>
+                                <input type="number" id="phone" name="phone" class="form-control" aria-label="Phone No." required />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="mb-2 fw-medium" for="set_pass">Set Password</label>
+                            <div class="input-group mb-2">
+                                <span class="input-group-text"><i class="fa-solid fa-key"></i></span>
+                                <input type="password" id="set_pass" name="mypassword" class="form-control" aria-label="Your Pin Code" required />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="mb-2 fw-medium" for="re_pass">Re-enter Password</label>
+                            <div class="input-group mb-2">
+                                <span class="input-group-text"><i class="fa-solid fa-key"></i></span>
+                                <input type="password" id="re_pass" name="password" class="form-control" aria-label="Your Pin Code" required />
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <button class="btn mybtn" type="submit">Register Now <i class="fa-solid fa-user-plus"></i></button>
+                        </div>
+                    </form>
+                </div>
+                <!-- End of Registration Form -->
+            </div>
+        </div>
+    </div>
+    <script src="{% static './js/bootstrap.bundle.min.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+</body>
+
+</html>

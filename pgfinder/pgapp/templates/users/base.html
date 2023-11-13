@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% load static %}
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="PGFinder" />
+    <title>PGFinder | {{nav}}</title>
+    <link rel="icon" href="{% static './img/favicon.png' %}" type="image/icon" />
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static './css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static './css/main.css' %}" />
+    <!-- <link rel="stylesheet" href="{% static './css/sweetalert2.min.css' %}" />
+    <script src="{% static './js/sweetalert2.all.min.js' %}"></script>
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+    </script> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+</head>
+<body>
+    <!-- navbar -->
+    <!-- <div class="topbar container-fluid">abcd</div> -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary" id="navscroll">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'home' %}">
+                <img src="{% static './img/logo.png' %}" class="logo" alt="logo" />
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item {% if nav == 'Home' %}active{% endif %} me-2">
+                        <a class="nav-link" aria-current="page" href="{% url 'home' %}">Home</a>
+                    </li>
+                    <li class="nav-item {% if nav == 'Properties' %}active{% endif %} me-2">
+                        <a class="nav-link" href="{% url 'properties' %}"> Properties</a>
+                    </li>
+                    <li class="nav-item {% if nav == 'About-Us' %}active{% endif %} me-2">
+                        <a class="nav-link" href="{% url 'about' %}"> About</a>
+                    </li>
+                    <li class="nav-item {% if nav == 'Contact us' %}active{% endif %} me-3">
+                        <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
+                    </li>
+                </ul>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <a type="button" class="btn mybtn navbtn btn-sm" href="{% url 'ownerAuth' %}">
+                        <i class="fa-solid fa-building-user"></i> Property Holder
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    {% comment %} End Navbar {% endcomment %}
+    {% block home %}{% endblock home %}
+    {% block properties %}{% endblock properties %}
+    {% block propertyDetails %}{% endblock propertyDetails %}
+    {% block about %}{% endblock about %}
+    {% block contact %}{% endblock contact %}
+    <!-- Footer -->
+    <footer class="text-center text-lg-start bg-white text-muted">
+        <!-- Section: Links  -->
+        <section class="">
+            <div class="container text-center text-md-start mt-5">
+                <!-- Grid row -->
+                <div class="row mt-3">
+                    <!-- Grid column -->
+                    <div class="col-lg-3 col-md-6 mx-auto mb-4">
+                        <!-- Content -->
+                        <h4 class="fw-bold mb-4">
+                            <a class="navbar-brand" href="{% url 'home' %}">
+                                <img src="{% static './img/logo1.png' %}" class="logo" alt="logo" />
+                            </a>
+                        </h4>
+                        <p>
+                            Hospitality is simply an opportunity to show love and care & We make sure your comforts and
+                            all needs will be taken care of.....
+                        </p>
+                    </div>
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    <div class="col-lg-3 col-md-6 mx-auto mb-4">
+                        <!-- Links -->
+                        <h6 class="text-uppercase fw-bold mb-4">
+                            Premium Properties
+                        </h6>
+                        <p>
+                            <a href="" class="text-reset"></a>
+                        </p>
+                        <p>
+                            <a href="" class="text-reset">AC Single Bed</a>
+                        </p>
+                        <p>
+                            <a href="" class="text-reset">AC Double Bed</a>
+                        </p>
+                        <p>
+                            <a href="" class="text-reset">AC Three Bed</a>
+                        </p>
+                        <p>
+                            <a href="" class="text-reset">AC Four Bed</a>
+                        </p>
+                    </div>
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    <div class="col-lg-3 col-md-6 mx-auto mb-4">
+                        <!-- Links -->
+                        <h6 class="text-uppercase fw-bold mb-4">
+                            Useful links
+                        </h6>
+                        <p>
+                            <a href="" class="text-reset">Property holder</a>
+                        </p>
+                        <p>
+                            <a href="" class="text-reset">About</a>
+                        </p>
+                        <p>
+                            <a href="" class="text-reset">Properties</a>
+                        </p>
+                        <p>
+                            <a href="" class="text-reset">Contacts</a>
+                        </p>
+                    </div>
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    <div class="col-lg-3 col-md-6 mx-auto mb-md-0 mb-4">
+                        <!-- Links -->
+                        <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+                        <p><i class="fas fa-home me-3 text-secondary"></i> Salt Lake, Sector v, Bidhannogor, Kolkata,
+                            700156</p>
+                        <p>
+                            <i class="fas fa-envelope me-3 text-secondary"></i>
+                            pgfinder@gmail.com
+                        </p>
+                        <p><i class="fas fa-phone me-3 text-secondary"></i> + 91 334 567 88</p>
+                        <p><i class="fas fa-print me-3 text-secondary"></i> + 91 334 567 89</p>
+                    </div>
+                    <!-- Grid column -->
+                </div>
+                <!-- Grid row -->
+            </div>
+        </section>
+        <!-- Section: Links  -->
+
+        <!-- Copyright -->
+        <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.025);">
+            &copy; <b>{% now "Y" %}</b> Made by <b>G7</b> @TINT
+            {% comment %} <a class="text-reset fw-bold" href=""></a> {% endcomment %}
+        </div>
+        <!-- Copyright -->
+    </footer>
+    <!-- End Footer -->
+<!-- JavaScript -->
+<script src="{% static './js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static './js/jquery.min.js' %}"></script>
+<script src="{% static './js/main.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+</body>
+</html>

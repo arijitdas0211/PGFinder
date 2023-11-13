@@ -1,0 +1,170 @@
+{% extends 'users/base.html' %}
+{% load static %}
+{% block propertyDetails %}
+<!-- breadcrumb -->
+<div class="container-fluid mt-5 mb-0 bg-white p-1 rounded breadcrumb_area">
+  {% for pd in propDetail %}
+  <h1 class="breadcrumb_head">{{pd.prop_name|title}}</h1>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'properties' %}">Properties</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{pd.prop_name|title}}</li>
+    </ol>
+  </nav>
+  {%endfor%}
+</div>
+
+<section class="prop-details container mt-5 mb-5 pb-5">
+  <div class="row">
+
+    {% if propDetail %}
+    {% for pd in propDetail %}
+    <div class="col-md-7 mt-3">
+      <div class="card propCard">
+
+        <div class="row">
+          <div class="col-lg-6 col-md-6">
+            <h4 class="card-title theme_color mb-1">{{ pd.prop_name|title }}</h4>
+            <h6 class="mb-3 fw-normal text-primary-emphasis">
+              <i class="fa-solid fa-location-dot"></i> {{pd.prop_location|title}}
+            </h6>
+          </div>
+          <!-- Taking User Rating -->
+          <div class="col-lg-6 col-md-6 pt-4">
+            <div class="rating float-end">
+              <i class="fa-solid fa-star fa-xl checked" id="a" data-value="1"></i>
+              <i class="fa-solid fa-star fa-xl" id="b" data-value="2"></i>
+              <i class="fa-solid fa-star fa-xl" id="c" data-value="3"></i>
+              <i class="fa-solid fa-star fa-xl" id="d" data-value="4"></i>
+              <i class="fa-solid fa-star fa-xl" id="e" data-value="5"></i>
+            </div>
+          </div>
+          <!-- End of Taking User Rating -->
+          <div class="col-lg-12 col-md-12">
+            <img src="{{ pd.prop_img.url }}" class="img-fluid border border-dark-subtle shadow" alt="product-details_image" />
+            {% comment %} Slider Images {% endcomment %}
+            {% comment %} <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <img src="{% static './img/2.jpg' %}" class="d-block w-100" alt="property_image">
+                </div>
+                <div class="carousel-item">
+                  <img src="{% static './img/3.jpg' %}" class="d-block w-100" alt="property_image">
+                </div>
+                <div class="carousel-item">
+                  <img src="{% static './img/5.jpg' %}" class="d-block w-100" alt="property_image">
+                </div>
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div> {% endcomment %}
+            {% comment %} Slider Images {% endcomment %}
+            <div class="card-body">
+              <p class="mt-3">
+              <div class="text mb-2">
+                <span class="fw-semibold">Address: <br/></span>
+                {{ pd.prop_address|safe }}
+              </div>
+              <a class="link" href="{{ pd.prop_gmap }}" target="_blank">
+                <i class="fa-solid fa-location-dot"></i> Click me to view the location in Google Map
+              </a>
+              </p>
+              <p class="card-text">
+                <span class="text fw-semibold">Facilities: <br/></span>
+                {% for fl in pd.facList %}
+                  <span class="badge text-bg-success shadow-sm badge-sm fw-normal">{{fl|title}}</span>
+                {% endfor %}
+              </p>
+              <p class="card-text">
+                <span class="text fw-semibold">Gender: <br/></span>
+                {% for pg in pd.propGen %}
+                  <span class="badge text-bg-dark shadow-sm badge-sm fw-normal">{{pg|upper}}</span>
+                {% endfor %}
+              </p>
+              <h5 class="mt-4 fw-medium">
+                <span class="fw-medium txt_theme">
+                  Price:
+                </span>
+                <i class="fa-solid fa-indian-rupee-sign"></i> {{ pd.prop_price }} per month
+              </h5>
+
+              <p class="card-text">
+                <span class="fw-semibold">Property Details: </span><br/>
+                {{ pd.prop_details|safe|capfirst }}
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    <div class="col-lg-5 p-3">
+      <h3 class="mb-2 text-center h-font">Enquire now</h3>
+      <div class="container">
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+              {{ message|safe }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+      <div class="container-fluid px-5">
+        <form method="POST">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="name2" class="form-label fw-medium">Your Name</label>
+            <input type="text" name="name" class="form-control" id="name2" placeholder="i.e. John Doe"  />
+          </div>
+          <div class="mb-3">
+            <label for="num2" class="form-label fw-medium">Phone No.</label>
+            <input type="number" name="phone" class="form-control" id="num2" placeholder="i.e. 8524065235"  />
+          </div>
+          <div class="mb-3">
+            <label for="prop" class="form-label fw-medium">Property Name</label>
+            {% for pd in propDetail %}
+            <input type="text" name="select_property" value="{{pd.prop_name}}" class="form-control" id="prop"
+              placeholder="i.e. 8524065235" readonly />
+            {% endfor %}
+          </div>
+          <div class="mb-3">
+            <label for="enquire5" class="form-label fw-medium">Please write your queries</label>
+            <textarea class="form-control" name="message"  id="enquire5" placeholder="Feel free to ask in details..."
+             ></textarea>
+          </div>
+          <div class="col-lg-12 d-grid gap-2 mt-3">
+            <button type="submit" id="submitPropQuery" class="btn mybtn">Submit Query</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <script>
+  {% if messages %}
+    {% for message in messages %}
+      document.getElementById('submitPropQuery').addEventListener('click', function () {
+        Toast.fire({
+          icon: '{{ message.tags }}',
+          title: '{{ message|safe }}'
+        })
+      })
+    {% endfor %}
+  {% endif %}
+</script> -->
+
+{% endblock propertyDetails %}

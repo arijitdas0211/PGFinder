@@ -1,0 +1,57 @@
+{% extends 'users/base.html' %}
+{% load static %}
+{% block contact %}
+    <!-- breadcrumb -->
+    <div class="container-fluid mt-5 bg-white p-1 rounded breadcrumb_area">
+        <h1 class="breadcrumb_head">Contact Us</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Contact</li>
+            </ol>
+        </nav>
+    </div>
+
+    <!-- body -->
+    <section class="contact-section container-fluid mb-5">
+        <div class="row">
+            <div class="mapping col-lg-4 col-md-12 mt-lg-auto p-5 m-lg-auto">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3684.022204594009!2d88.47263197483817!3d22.57827283276326!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a02753269586b03%3A0xfbb4d0c346a81109!2sTechno%20International%20New%20Town!5e0!3m2!1sen!2sin!4v1693641751762!5m2!1sen!2sin"
+                    height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade" style="max-width: 500px;"></iframe>
+            </div>
+            <div class="col-lg-8 col-md-12 px-5 m-lg-auto">
+                <!-- form part -->
+                <h2 class="mb-4 text-center fw-bold h-font">Get in touch with us</h2>
+                <div class="container-fluid px-5">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                {{ message|safe }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="name1" class="form-label fw-medium">Full Name</label>
+                            <input type="text" class="form-control" name="name" id="name1" placeholder="i.e. John Doe"  />
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone1" class="form-label fw-medium">Your Contact No.</label>
+                            <input type="number" class="form-control" name="contact_no" id="phone1" placeholder="i.e. 9568725502"  />
+                        </div>
+                        <div class="mb-3">
+                            <label for="query1" class="form-label fw-medium">Write Your Query</label>
+                            <textarea class="form-control" name="queries" id="query1" placeholder="Please write your query in details..." ></textarea>
+                        </div>
+                        <div class="col-lg-12 d-grid gap-2 mt-3">
+                            <button type="submit" class="btn mybtn w-100">Submit you query</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock contact %}
