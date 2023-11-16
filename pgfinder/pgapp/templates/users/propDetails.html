@@ -32,17 +32,24 @@
           </div>
           <!-- Taking User Rating -->
           <div class="col-lg-6 col-md-6 pt-4">
-            <div class="rating float-end">
-              <i class="fa-solid fa-star fa-xl checked" id="a" data-value="1"></i>
-              <i class="fa-solid fa-star fa-xl" id="b" data-value="2"></i>
-              <i class="fa-solid fa-star fa-xl" id="c" data-value="3"></i>
-              <i class="fa-solid fa-star fa-xl" id="d" data-value="4"></i>
-              <i class="fa-solid fa-star fa-xl" id="e" data-value="5"></i>
+            <div class="float-end">
+              <!-- {{avgRate}} -->
+              {% if RateList %}
+              {% for i in RateList %}
+              <i class="fa-solid fa-star fa-xl" value="{{i}}" style="color: #ff9500;"></i>
+              {% endfor %}
+              {% endif %}
+              {% if remList %}
+              {% for n in remList %}
+              <i class="fa-regular fa-star fa-xl" value="{{n}}" style="color: #ff9500;"></i>
+              {% endfor %}
+              {% endif %}
             </div>
           </div>
           <!-- End of Taking User Rating -->
           <div class="col-lg-12 col-md-12">
-            <img src="{{ pd.prop_img.url }}" class="img-fluid border border-dark-subtle shadow" alt="product-details_image" />
+            <img src="{{ pd.prop_img.url }}" class="img-fluid w-100 border border-dark-subtle shadow"
+              alt="product-details_image" />
             {% comment %} Slider Images {% endcomment %}
             {% comment %} <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
               <div class="carousel-inner">
@@ -71,7 +78,7 @@
             <div class="card-body">
               <p class="mt-3">
               <div class="text mb-2">
-                <span class="fw-semibold">Address: <br/></span>
+                <span class="fw-semibold">Address: <br /></span>
                 {{ pd.prop_address|safe }}
               </div>
               <a class="link" href="{{ pd.prop_gmap }}" target="_blank">
@@ -79,15 +86,15 @@
               </a>
               </p>
               <p class="card-text">
-                <span class="text fw-semibold">Facilities: <br/></span>
+                <span class="text fw-semibold">Facilities: <br /></span>
                 {% for fl in pd.facList %}
-                  <span class="badge text-bg-success shadow-sm badge-sm fw-normal">{{fl|title}}</span>
+                <span class="badge text-bg-success shadow-sm badge-sm fw-normal">{{fl|title}}</span>
                 {% endfor %}
               </p>
               <p class="card-text">
-                <span class="text fw-semibold">Gender: <br/></span>
+                <span class="text fw-semibold">Gender: <br /></span>
                 {% for pg in pd.propGen %}
-                  <span class="badge text-bg-dark shadow-sm badge-sm fw-normal">{{pg|upper}}</span>
+                <span class="badge text-bg-dark shadow-sm badge-sm fw-normal">{{pg|upper}}</span>
                 {% endfor %}
               </p>
               <h5 class="mt-4 fw-medium">
@@ -96,9 +103,8 @@
                 </span>
                 <i class="fa-solid fa-indian-rupee-sign"></i> {{ pd.prop_price }} per month
               </h5>
-
               <p class="card-text">
-                <span class="fw-semibold">Property Details: </span><br/>
+                <span class="fw-semibold">Property Details: </span><br />
                 {{ pd.prop_details|safe|capfirst }}
               </p>
             </div>
@@ -114,24 +120,25 @@
       <h3 class="mb-2 text-center h-font">Enquire now</h3>
       <div class="container">
         {% if messages %}
-          {% for message in messages %}
-            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-              {{ message|safe }}
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-          {% endfor %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+          {{ message|safe }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
         {% endif %}
       </div>
       <div class="container-fluid px-5">
         <form method="POST">
           {% csrf_token %}
+          <input type="hidden" name="form_type" value="myquery" />
           <div class="mb-3">
             <label for="name2" class="form-label fw-medium">Your Name</label>
-            <input type="text" name="name" class="form-control" id="name2" placeholder="i.e. John Doe"  />
+            <input type="text" name="name" class="form-control" id="name2" placeholder="i.e. John Doe" />
           </div>
           <div class="mb-3">
             <label for="num2" class="form-label fw-medium">Phone No.</label>
-            <input type="number" name="phone" class="form-control" id="num2" placeholder="i.e. 8524065235"  />
+            <input type="number" name="phone" class="form-control" id="num2" placeholder="i.e. 8524065235" />
           </div>
           <div class="mb-3">
             <label for="prop" class="form-label fw-medium">Property Name</label>
@@ -142,29 +149,49 @@
           </div>
           <div class="mb-3">
             <label for="enquire5" class="form-label fw-medium">Please write your queries</label>
-            <textarea class="form-control" name="message"  id="enquire5" placeholder="Feel free to ask in details..."
-             ></textarea>
+            <textarea class="form-control" name="message" id="enquire5"
+              placeholder="Feel free to ask in details..."></textarea>
           </div>
           <div class="col-lg-12 d-grid gap-2 mt-3">
             <button type="submit" id="submitPropQuery" class="btn mybtn">Submit Query</button>
           </div>
         </form>
+        <div>
+        <p class="mt-4 card-text text-primary-emphasis fs-6 fw-medium">
+          Have you been here? Please post
+          <button type="button" class="btn btn-dark btn-sm fw-medium" data-bs-toggle="modal"
+            data-bs-target="#ratingModal"><u>REVIEW</u></button>
+          for us <i class="fa-regular fa-face-grin-hearts fa-xl"></i>
+        </p>
+        <!-- Modal -->
+        <div class="modal fade bg-dark bg-gradient bg-opacity-75" id="ratingModal" tabindex="-1"
+          aria-labelledby="ratingModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-white bg-gradient bg-opacity-100 mx-auto w-50">
+              <div class="modal-body text-center">
+                <p class="text-center my-4">
+                  <i class="fa-solid fa-star fa-xl val" id="one" title="Poor"></i>
+                  <i class="fa-solid fa-star fa-xl val" id="two" title="Fair"></i>
+                  <i class="fa-solid fa-star fa-xl val" id="three" title="Good"></i>
+                  <i class="fa-solid fa-star fa-xl val" id="four" title="Excellent"></i>
+                  <i class="fa-solid fa-star fa-xl val" id="five" title="Outstanding"></i>
+                </p>
+                <form method="post">
+                  {% csrf_token %}
+                  <input type="hidden" name="form_type" value="myrating" />
+
+                  <input id="val" type="hidden" name="score" required />
+                  <button type="submit" class="btn mybtn btn-sm mx-auto w-100">
+                    Submit Rating
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Modal End  -->
       </div>
     </div>
   </div>
 </section>
-
-<!-- <script>
-  {% if messages %}
-    {% for message in messages %}
-      document.getElementById('submitPropQuery').addEventListener('click', function () {
-        Toast.fire({
-          icon: '{{ message.tags }}',
-          title: '{{ message|safe }}'
-        })
-      })
-    {% endfor %}
-  {% endif %}
-</script> -->
-
 {% endblock propertyDetails %}

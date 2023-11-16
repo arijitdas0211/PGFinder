@@ -2,7 +2,7 @@ from django.db import models
 from django import forms
 from django.utils.timezone import now
 from django.contrib.auth.models import User
-from django.core.validators import MaxValueValidator, MinValueValidator
+# from django.core.validators import MaxValueValidator, MinValueValidator
 from autoslug import AutoSlugField
 import numpy as np
 
@@ -10,12 +10,6 @@ import numpy as np
 class Properties(models.Model):
     prop_id = models.AutoField(primary_key=True)
     prop_name = models.CharField(max_length=100)
-    score = models.IntegerField(default=0, 
-                                validators= [
-                                    MaxValueValidator(5),
-                                    MinValueValidator(0),
-                                ]
-                            )
     prop_img = models.FileField(upload_to="properties")
     prop_location = models.CharField(max_length=100)
     prop_address = models.CharField(max_length=200)
@@ -44,11 +38,18 @@ class Properties(models.Model):
     def __str__(self):
         return f"{self.prop_name}"
 
-
 class ImageForm(forms.ModelForm):
     class Meta:
         model = Properties
         fields = ['prop_img']
+
+
+class Rating(models.Model):
+    rate_id = models.AutoField(primary_key=True)
+    score = models.IntegerField(default=0)
+    is_Rated = models.BooleanField(default=False)
+    user_ip = models.GenericIPAddressField()
+    prop_id = models.ForeignKey('Properties', on_delete=models.CASCADE)
 
 class PropertyHolder(models.Model):
     owner_id = models.AutoField(primary_key=True)

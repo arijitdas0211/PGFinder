@@ -93,7 +93,7 @@
                         {% for p in prop %}
                             <div class="col-lg-3 col-md-6 mt-5">
                                 <div class="card custom_card shadow" onclick="window.location='{{ p.prop_slug }}'">
-                                    <img src="{{p.prop_img.url}}" class="card-img-top" alt="prop_image" />
+                                    <img src="{{p.prop_img.url}}" class="card-img-top" alt="{{p.prop_image}}" />
                                     <div class="card-body">
                                         <h5 class="card-title theme_color">{{ p.prop_name|title|truncatechars:20 }}</h5>
                                         <h6 class="fw-normal text-primary-emphasis"><i class="fa-solid fa-location-dot"></i> {{p.prop_location|title}}</h6>

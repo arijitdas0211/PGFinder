@@ -73,3 +73,92 @@ datatables.forEach(datatable => {
 // Datatable
 
 // User star rating
+$(document).ready(function () {
+  a = $('#one')
+  b = $('#two')
+  c = $('#three')
+  d = $('#four')
+  e = $('#five')
+  x = 0
+
+  $(a).click(function () {
+    $(a).css("color", "#FFBB00")
+    $(b).css("color", "initial")
+    $(c).css("color", "initial")
+    $(d).css("color", "initial")
+    $(e).css("color", "initial")
+    x = 1
+  })
+  $(b).click(function () {
+    $(a).css("color", "#FFBB00")
+    $(b).css("color", "#FFBB00")
+    $(c).css("color", "initial")
+    $(d).css("color", "initial")
+    $(e).css("color", "initial")
+    x = 2
+  })
+  $(c).click(function () {
+    $(a).css("color", "#FFBB00")
+    $(b).css("color", "#FFBB00")
+    $(c).css("color", "#FFBB00")
+    $(d).css("color", "initial")
+    $(e).css("color", "initial")
+    x = 3
+  })
+  $(d).click(function () {
+    $(a).css("color", "#FFBB00")
+    $(b).css("color", "#FFBB00")
+    $(c).css("color", "#FFBB00")
+    $(d).css("color", "#FFBB00")
+    $(e).css("color", "initial")
+    x = 4
+  })
+  $(e).click(function () {
+    $(a).css("color", "#FFBB00")
+    $(b).css("color", "#FFBB00")
+    $(c).css("color", "#FFBB00")
+    $(d).css("color", "#FFBB00")
+    $(e).css("color", "#FFBB00")
+    x = 5
+  })
+  $('.val').click(function () {
+    // console.log(x)
+    var score = x
+    $('#val').attr("value", score);
+  })
+});
+
+// OWL Carousel
+$(document).ready(function () {
+
+  $("#owl-demo").owlCarousel({
+
+    //Basic Speeds
+    slideSpeed: 200,
+    paginationSpeed: 1000,
+
+    autoPlay: 3000, //Set AutoPlay to 3 seconds
+    goToFirst: true,
+    goToFirstSpeed: 1000,
+
+    // Navigation
+    navigation: false,
+    navigationText: [
+      '<svg xmlns="http://www.w3.org/2000/svg" height="1.5em" viewBox="0 0 320 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#852809}</style><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"/></svg>',
+      '<svg xmlns="http://www.w3.org/2000/svg" height="1.5em" viewBox="0 0 320 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#852809}</style><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg>'
+    ],
+    pagination: true,
+    paginationNumbers: false,
+
+    // Responsive
+    responsive: true,
+    items: 4,
+    itemsDesktop: [1199, 3],
+    itemsDesktopSmall: [980, 3],
+    itemsTablet: [768, 2],
+    itemsMobile: [479, 1]
+
+  });
+
+});
+// End of OWL

@@ -2,10 +2,10 @@
 {% load static %}
 {% block home %}
     <!-- main -->
-    <section class="section main_section pt-5 pb-5">
+    <section class="section main_section pt-5 pb-5 mb-3">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6 col-md-12 col-sm-12 mt-5 pt-5">
+                <div class="col-lg-6 col-md-6 mt-5 pt-5">
                     <h1 class="main_head mx-auto mt-5 me-auto pt-5">
                         Find <span class="text-gm">Like-Minded</span> Roommates
                     </h1>
@@ -20,7 +20,7 @@
                         Find my PG <i class="fa-solid fa-arrow-right"></i>
                     </a>
                 </div>
-                <div class="col-lg-6 col-md-12 col-sm-12 main_img mt-5 pt-5">
+                <div class="col-lg-6 col-md-6 main_img mt-5 pt-5">
                     <img src="{% static './img/pg.png' %}" class="img-fluid" alt="main" />
                 </div>
             </div>
@@ -30,78 +30,57 @@
     <!--check Form Availability-->
     <!-- body -->
     {% if prop %}
-    <section class="section prop_section pt-3">
-        <div class="container-fluid availability-form">
-            <div class="row mt-5">
+    <section class="section prop_section pt-0">
+        <div class="container availability-form">
+            <div class="row pt-5 border-0">
                 <span class="heading">
-                    <h2 class="text-center fw-500 h-font">
-                        <i class="fa-solid fa-house-circle-check"></i> Find Your Desired PG
-                    </h2>
+                    <h3 class="heading text-center fw-400 h-font">
+                        <span>Find Your Desired PG</span>
+                    </h3>
                 </span>
-                <div class="col-lg-3 filter_panel bg-white py-3 px-5 rounded">
+                <div class="col-lg-10 filter_panel bg-white py-3 mx-auto px-5 rounded">
                     <form method="post">
                         {% csrf_token %}
                         <div class="row align-items-end">
-                            <div class="col-lg-12 mb-3">
-                                <label class="form-label mt-2" style="font-weight:500">Gender</label>
-                                <select class="form-select shadow-none cursor-pointer" required>
+                            <div class="col-lg-3 mb-3">
+                                <label class="form-label mt-2 fw-medium">Gender</label>
+                                <select class="form-select shadow-none cursor-pointer" name="gender">
                                     <option selected disabled>-- Select Option --</option>
                                     <option value="male">Male</option>
                                     <option value="female">Female</option>
-                                    <option value="others">Others</option>
                                 </select>
                             </div>
-                            <div class="col-lg-12 mb-3">
-                                <label class="form-label mt-2" style="font-weight:500">Location</label>
-                                <select class="form-select shadow-none cursor-pointer" required>
+                            <div class="col-lg-3 mb-3">
+                                <label class="form-label mt-2 fw-medium">Location</label>
+                                <select class="form-select shadow-none cursor-pointer" name="location">
                                     <option selected disabled>-- Open to select --</option>
-                                    <option value="1">New-town</option>
-                                    <option value="2">Salt-Lake</option>
+                                    {% for loc in location %}
+                                    <option value="{{loc}}">{{loc|title}}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
-                            <label for="price_range" class="form-label mt-2"><b>Price Range</b></label>
-                            <div class="form-check mx-3">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                    id="flexRadioDefault1" checked>
-                                <label class="form-check-label" for="flexRadioDefault1">
-                                    <i class="fa-solid fa-indian-rupee-sign"></i> 5,000
-                                    to
-                                    <i class="fa-solid fa-indian-rupee-sign"></i> 10,000
-                                </label>
+                            <div class="col-lg-3 mb-2">
+                                <label class="form-label fw-medium mt-2">Price Range</label>
+                                <div class="slidecontainer mb-0 pb-0">
+                                    <input type="range" min="{{min_price}}" max="{{max_price}}" step="100" name="price" value="price" class="slider" id="myRange" />
+                                    <label class="fw-medium">Upto: <span id="demo" class="fw-normal"></span></label>
+                                </div>
                             </div>
-                            <div class="form-check mx-3">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                    id="flexRadioDefault2">
-                                <label class="form-check-label" for="flexRadioDefault2">
-                                    <i class="fa-solid fa-indian-rupee-sign"></i> 10,001
-                                    to
-                                    <i class="fa-solid fa-indian-rupee-sign"></i> 15,000
-                                </label>
-                            </div>
-                            <div class="form-check mx-3">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                    id="flexRadioDefault3">
-                                <label class="form-check-label" for="flexRadioDefault3">
-                                    <i class="fa-solid fa-indian-rupee-sign"></i> 15,001
-                                    to
-                                    <i class="fa-solid fa-indian-rupee-sign"></i> 20,000
-                                </label>
-                            </div>
-                            <div class="col-lg-12 d-grid gap-2 mt-3">
-                                <button type="submit" class="btn mybtn btn-sm"><i
-                                        class="fa-brands fa-sistrix"></i> Filter Result</button>
+                            <div class="col-lg-3 d-grid gap-2 mb-4">
+                                <button type="submit" class="btn mybtn btn-sm">
+                                    <i class="fa-brands fa-sistrix fa-lg"></i>&nbsp;&nbsp; Filter Result
+                                </button>
                             </div>
                         </div>
                     </form>
                 </div>
-
-                <!--Our Rooms-->
-                <div class="col-lg-9">
+                <!--Our PG(s)-->
+                <div class="col-lg-12">
                     <div class="row">                    
                     {% for p in prop %}
-                        <div class="col-lg-4 col-md-6 mt-5">
+                        <div class="col-lg-3 col-md-6 mt-5">
                             <div class="card custom_card shadow" onclick="window.location='properties/{{ p.prop_slug }}'">
-                                <img src="{{p.prop_img.url}}" class="card-img-top" alt="p.prop_img" />
+                                <img src="{{p.prop_img.url}}" class="card-img-top" alt="{{p.prop_img}}" />
                                 <div class="card-body">
                                     <h5 class="card-title theme_color">{{ p.prop_name|title|truncatechars:20 }}</h5>
                                     <h6 class="fw-normal text-primary-emphasis"><i class="fa-solid fa-location-dot"></i> {{p.prop_location|title}}</h6>
@@ -131,12 +110,82 @@
                 </div>
             </div>
             <br/>
-            <div class="col-lg-12 text-center mt-5 pb-5 ">
+            <div class="col-lg-12 text-end mt-5 pb-5 ">
                 <a href="{% url 'properties' %}">
-                    <button class="btn mybtn w-20" type="submit"> Show more properties (PGs)
+                    <button class="btn mybtn" type="submit"> All Properties (PGs)
                         <i class="fa-solid fa-arrow-right-long"></i></button>
                 </a>
             </div>
+            {% comment %} Top Rated Properties {% endcomment %}
+            {% if ratedProps %}
+            <div class="bg-light bg-gradient row mt-3 pt-5 pb-5 border-top border-3 border-tertiary">
+                <span class="heading">
+                    <h3 class="heading text-center fw-400 h-font">
+                        <span>Top Rated Properties</span>
+                    </h3>
+                </span>
+                <!--Our PG(s)-->
+                {% comment %} <div class="col-lg-12 mb-5">
+                    <div class="row">
+                        {% for p in ratedProps %}
+                        <div class="col-lg-3 col-md-6 mt-5">                            
+                            <div class="card custom_card shadow" onclick="window.location='properties/{{ p.prop_slug }}'">
+                                <img src="{{p.prop_img.url}}" class="card-img-top" alt="{{p.prop_img}}" />
+                                <div class="card-body">
+                                    <h5 class="card-title theme_color">{{ p.prop_name|title|truncatechars:20 }}</h5>
+                                    <h6 class="fw-normal text-primary-emphasis"><i class="fa-solid fa-location-dot"></i> {{p.prop_location|title}}</h6>
+                                    <p class="text-danger-emphasis fw-medium">
+                                        <i class="fa-solid fa-indian-rupee-sign"></i> {{ p.prop_price }} / month
+                                    </p>
+                                    <p>
+                                        {% for fac in p.facList %}
+                                            <span class="badge text-bg-success badge-sm fw-normal">{{fac|title}}</span>
+                                        {% endfor %}
+                                        <br/>
+                                        {% for pg in p.propGen %}
+                                            <span class="badge text-bg-dark badge-sm fw-normal">{{pg|upper}}</span>
+                                        {% endfor %}
+                                    </p>
+                                    <p class="card-text card_details">
+                                        {{p.prop_details|safe|truncatechars:100}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div> {% endcomment %}
+                <div id="owl-demo" class="owl-carousel owl-theme mt-5 mb-5">
+                    {% for p in ratedProps %}
+                    <div class="item">
+                        <div class="card custom_card shadow" onclick="window.location='properties/{{ p.prop_slug }}'">
+                            <img src="{{p.prop_img.url}}" class="card-img-top" alt="{{p.prop_img}}" />
+                            <div class="card-body">
+                                <h5 class="card-title theme_color">{{ p.prop_name|title|truncatechars:20 }}</h5>
+                                <h6 class="fw-normal text-primary-emphasis"><i class="fa-solid fa-location-dot"></i> {{p.prop_location|title}}</h6>
+                                <p class="text-danger-emphasis fw-medium">
+                                    <i class="fa-solid fa-indian-rupee-sign"></i> {{ p.prop_price }} / month
+                                </p>
+                                <p>
+                                    {% for fac in p.facList %}
+                                        <span class="badge text-bg-success badge-sm fw-normal">{{fac|title}}</span>
+                                    {% endfor %}
+                                    <br/>
+                                    {% for pg in p.propGen %}
+                                        <span class="badge text-bg-dark badge-sm fw-normal">{{pg|upper}}</span>
+                                    {% endfor %}
+                                </p>
+                                <p class="card-text card_details">
+                                    {{p.prop_details|safe|truncatechars:100}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>                    
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            {% comment %} End of Top Rated Properties {% endcomment %}
         </div>
     </section>
     {% else %}
@@ -144,5 +193,15 @@
         <h5 class="text-center fw-500">Oops!! No Property to Show</h5>
     </section>
     {% endif %}
+<script>
+// Price range Slider
+var slider = document.getElementById("myRange");
+var output = document.getElementById("demo");
+output.innerHTML = slider.value;
 
+slider.oninput = function () {
+  output.innerHTML = this.value;
+};
+// Price range Slider
+</script>
 {% endblock home %}
