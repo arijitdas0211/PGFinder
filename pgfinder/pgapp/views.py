@@ -5,9 +5,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 import os
-from django.db.models import Sum, Avg, Max, Min
-from django.db.models.functions import Round
-# https://www.educative.io/answers/how-to-get-the-user-ip-address-in-django -- For Client IP Address
+from django.db.models import Avg
+from ipware import get_client_ip
 
 # owners/property holder's views
 @login_required
@@ -25,15 +24,15 @@ def addOwnProp(request):
         user = request.user
         user_id = user.id
         if request.method == "POST":
-            prop_name = request.POST["prop_name"]
+            prop_name = request.POST.get("prop_name")
             prop_img = request.FILES["prop_img"]
-            prop_location = request.POST["prop_location"]
-            prop_address = request.POST["prop_address"]
-            prop_gmap = request.POST["prop_gmap"]
-            prop_facilities = request.POST["prop_facilities"]
-            prop_price = request.POST["prop_price"]
-            prop_gender = request.POST["prop_gender"]
-            prop_details = request.POST["prop_details"]
+            prop_location = request.POST.get("prop_location")
+            prop_address = request.POST.get("prop_address")
+            prop_gmap = request.POST.get("prop_gmap")
+            prop_facilities = request.POST.get("prop_facilities")
+            prop_price = request.POST.get("prop_price")
+            prop_gender = request.POST.get("prop_gender")
+            prop_details = request.POST.get("prop_details")
             
             myprop = Properties(prop_name=prop_name, prop_img=prop_img, prop_location=prop_location, prop_address=prop_address, prop_gmap=prop_gmap, prop_facilities=prop_facilities, prop_price=prop_price, prop_gender=prop_gender, prop_details=prop_details, user_id=user_id)
             myprop.save()
@@ -58,14 +57,14 @@ def updateOwnProp(request, prop_slug):
             if len(propId.prop_img) > 0:
                 os.remove(propId.prop_img.path)
             propId.prop_img = request.FILES['prop_img']
-        propId.prop_name = request.POST["prop_name"]
-        propId.prop_location = request.POST["prop_location"]
-        propId.prop_address = request.POST["prop_address"]
-        propId.prop_gmap = request.POST["prop_gmap"]
-        propId.prop_facilities = request.POST["prop_facilities"]
-        propId.prop_price = request.POST["prop_price"]
-        propId.prop_gender = request.POST["prop_gender"]
-        propId.prop_details = request.POST["prop_details"]
+        propId.prop_name = request.POST.get("prop_name")
+        propId.prop_location = request.POST.get("prop_location")
+        propId.prop_address = request.POST.get("prop_address")
+        propId.prop_gmap = request.POST.get("prop_gmap")
+        propId.prop_facilities = request.POST.get("prop_facilities")
+        propId.prop_price = request.POST.get("prop_price")
+        propId.prop_gender = request.POST.get("prop_gender")
+        propId.prop_details = request.POST.get("prop_details")
         propId.save()
         
         propdetail = Properties.objects.filter(prop_slug=prop_slug).first()
@@ -92,12 +91,12 @@ def ownPropDetail(request, prop_slug):
 def ownerAuth(request):
     # User Registration
     if request.method == 'POST':
-        if request.POST['form_type'] == "registerForm":
-            fname = request.POST['fname']
-            lname = request.POST['lname']
-            phone = request.POST['phone']
-            mypassword = request.POST['mypassword']
-            password = request.POST['password']
+        if request.POST.get('form_type') == "registerForm":
+            fname = request.POST.get('fname')
+            lname = request.POST.get('lname')
+            phone = request.POST.get('phone')
+            mypassword = request.POST.get('mypassword')
+            password = request.POST.get('password')
 
             if len(fname)<2 or len(lname)<1 or len(phone) != 10 or password != mypassword:
                 messages.error(request, '<i class="fa-regular fa-circle-xmark"></i> <b>Sorry!</b> Invalid Submission.')
@@ -109,15 +108,15 @@ def ownerAuth(request):
     
     # User Login
     if request.method == 'POST':
-        if request.POST['form_type'] == "loginForm":
-            userphone = request.POST['phone']
-            password = request.POST['password']
+        if request.POST.get('form_type') == "loginForm":
+            userphone = request.POST.get('phone')
+            password = request.POST.get('password')
             
             user = authenticate(username=userphone, password=password)
             if user is not None:
                 login(request, user)
                 # messages.success(request, "<i class='fa-regular fa-thumbs-up'></i> <b>Great!</b> Login Successful!<br/>")
-                return redirect('enquiry')
+                return redirect('ownProp')
             else:
                 messages.error(request, "<i class='fa-regular fa-circle-xmark'></i> <b>Sorry!</b> User doesn't exist, please register..!")
 
@@ -130,12 +129,12 @@ def ownerProfile(request):
         user_id = user.id
         check_user = PropertyHolder.objects.filter(user_id=user_id).first()
         if request.method == "POST":
-            owner_aadhaar = request.POST["aadhaar"]
-            owner_pan = request.POST["pan"]
-            owner_state = request.POST["state"]
-            owner_city = request.POST["city"]
-            owner_pin = request.POST["pin"]
-            owner_address = request.POST["address"]
+            owner_aadhaar = request.POST.get("aadhaar")
+            owner_pan = request.POST.get("pan")
+            owner_state = request.POST.get("state")
+            owner_city = request.POST.get("city")
+            owner_pin = request.POST.get("pin")
+            owner_address = request.POST.get("address")
 
             if check_user is None:
                 ownerinfo = PropertyHolder(owner_aadhaar=owner_aadhaar, owner_pan=owner_pan, owner_state=owner_state, owner_city=owner_city, owner_pin=owner_pin, owner_address=owner_address, user_id = user_id)
@@ -143,12 +142,12 @@ def ownerProfile(request):
                 messages.success(request, '<i class="fa-regular fa-thumbs-up"></i> <b>Great!</b> Your profile has been saved!')
             else:
                 PropertyHolder.objects.filter(user_id=user_id).update(
-                        owner_aadhaar = request.POST["aadhaar"],
-                        owner_pan = request.POST["pan"],
-                        owner_state = request.POST["state"],
-                        owner_city = request.POST["city"],
-                        owner_pin = request.POST["pin"],
-                        owner_address = request.POST["address"]
+                        owner_aadhaar = request.POST("aadhaar"),
+                        owner_pan = request.POST("pan"),
+                        owner_state = request.POST("state"),
+                        owner_city = request.POST("city"),
+                        owner_pin = request.POST("pin"),
+                        owner_address = request.POST("address")
                     )
                 messages.success(request, '<i class="fa-regular fa-thumbs-up"></i> <b>Great!</b> Your profile has been updated!')
         owner = PropertyHolder.objects.filter(user_id=user_id).first()
@@ -166,13 +165,32 @@ def ownerLogout(request):
 
 # Frontend users views
 def home(request):
-    # Rendering all props
+    # Rendering all props or filter props
     if request.method == 'POST':
-        myGen = request.POST['gender']
-        myLoc = request.POST['location']
-        myPrice = request.POST['price']
+        myGen = request.POST.get('gender')
+        myLoc = request.POST.get('location')
+        myPrice = request.POST.get('price')
         # print("Selected Filters are:- ", myGen, " | ", myLoc, " | ", myPrice)
-        prop = Properties.objects.filter(prop_gender=myGen, prop_location = myLoc, prop_price__lte = myPrice).order_by('prop_price')
+
+        if myLoc and myPrice and not myGen:
+            prop = Properties.objects.filter(prop_location = myLoc, prop_price__lte = myPrice).order_by('prop_price')
+        elif myGen and myPrice and not myLoc:
+            prop = Properties.objects.filter(prop_gender__exact=myGen, prop_price__lte = myPrice).order_by('prop_price')
+        elif myGen and myLoc and not myPrice:
+            prop = Properties.objects.filter(prop_gender__in=myGen, prop_location = myLoc).order_by('prop_price')
+        elif myPrice and not myGen and not myLoc:
+            prop = Properties.objects.filter(prop_price__lte = myPrice).order_by('prop_price')
+        elif myGen and not myLoc and not myPrice:
+            prop = Properties.objects.filter(prop_gender__in=myGen).order_by('prop_price')
+        elif myLoc and not myGen and not myPrice:
+            prop = Properties.objects.filter(prop_location = myLoc).order_by('prop_price')
+        else:
+            prop = Properties.objects.filter(prop_gender__in=myGen, prop_location = myLoc, prop_price__lte = myPrice).order_by('prop_price')
+
+        # print(prop)
+        if not prop:
+            prop = Properties.objects.all().order_by('-prop_on')[:8]
+            messages.warning(request, '<b>Sorry!</b> Filtered Property not available, instead Showing All.')
     else:
         prop = Properties.objects.all().order_by('-prop_on')[:8]
 
@@ -185,30 +203,76 @@ def home(request):
     location = Properties.objects.values_list('prop_location', flat=True).distinct().order_by('-prop_location')
     propPrice = Properties.objects.values_list('prop_price', flat=True).distinct()
     # print(max(propPrice))
+    footerProps = Properties.objects.all().order_by('-prop_on')[:5]
     return render(request, 'users/index.html', 
                 {
                     'nav' : 'Home', 
                     'prop' : prop, 
+                    'footerProps' : footerProps,
                     'ratedProps' : ratedProps, 
                     'location' : location,
-                    'max_price' : max(propPrice),
-                    'min_price' : min(propPrice)
+                    'max_price' : max(propPrice)+1000,
+                    'min_price' : min(propPrice)-1000
                 })
 
 def properties(request):
-    prop = Properties.objects.all().order_by('-prop_on')
-    return render(request, 'users/properties.html', {'nav' : 'Properties', 'prop' : prop})
+    # Rendering all props or filter props
+    if request.method == 'POST':
+        myGen = request.POST.get('gender')
+        myLoc = request.POST.get('location')
+        myPrice = request.POST.get('price')
+        # print("Selected Filters are:- ", myGen, " | ", myLoc, " | ", myPrice)
+
+        if myLoc and myPrice and not myGen:
+            prop = Properties.objects.filter(prop_location = myLoc, prop_price__lte = myPrice).order_by('prop_price')
+        elif myGen and myPrice and not myLoc:
+            prop = Properties.objects.filter(prop_gender__exact=myGen, prop_price__lte = myPrice).order_by('prop_price')
+        elif myGen and myLoc and not myPrice:
+            prop = Properties.objects.filter(prop_gender__in=myGen, prop_location = myLoc).order_by('prop_price')
+        elif myPrice and not myGen and not myLoc:
+            prop = Properties.objects.filter(prop_price__lte = myPrice).order_by('prop_price')
+        elif myGen and not myLoc and not myPrice:
+            prop = Properties.objects.filter(prop_gender__in=myGen).order_by('prop_price')
+        elif myLoc and not myGen and not myPrice:
+            prop = Properties.objects.filter(prop_location = myLoc).order_by('prop_price')
+        else:
+            prop = Properties.objects.filter(prop_gender__in=myGen, prop_location = myLoc, prop_price__lte = myPrice).order_by('prop_price')
+
+        # print(prop)
+        if not prop:
+            prop = Properties.objects.all().order_by('-prop_on')
+            messages.warning(request, '<b>Sorry!</b> Filtered Property not available, instead Showing All.')
+    else:
+        prop = Properties.objects.all().order_by('-prop_on')
+
+    # For Top Rated properties
+    ratingIds = Rating.objects.values_list('prop_id', flat=True).distinct().order_by('-score')
+    ratedProps = []
+    for i in ratingIds:
+        ratedProps.append(Properties.objects.filter(prop_id=i).first())
+    
+    location = Properties.objects.values_list('prop_location', flat=True).distinct().order_by('-prop_location')
+    propPrice = Properties.objects.values_list('prop_price', flat=True).distinct()
+    # print(max(propPrice))
+    footerProps = Properties.objects.all().order_by('-prop_on')[:5]
+    return render(request, 'users/properties.html', {'nav' : 'Properties', 
+                                                     'prop' : prop, 
+                                                     'footerProps' : footerProps,
+                                                     'ratedProps' : ratedProps, 
+                                                     'location' : location,
+                                                     'max_price' : max(propPrice)+1000,
+                                                     'min_price' : min(propPrice)-1000 })
 
 def propDetails(request, prop_slug):
     prop_details = Properties.objects.filter(prop_slug=prop_slug)
     prop_id = Properties.objects.filter(prop_slug=prop_slug).first()
 
     if request.method == "POST":
-        if request.POST['form_type'] == "myquery":
-            name = request.POST['name']
-            phone = request.POST['phone']
-            select_property = request.POST['select_property']
-            message = request.POST['message']
+        if request.POST.get('form_type') == "myquery":
+            name = request.POST.get('name')
+            phone = request.POST.get('phone')
+            select_property = request.POST.get('select_property')
+            message = request.POST.get('message')
             if len(name) < 2 or len(phone) != 10 or len(message) < 10:
                 messages.error(request, '<i class="fa-regular fa-circle-xmark"></i> <b>Sorry!</b> Invalid Submission.')
             else:
@@ -219,20 +283,20 @@ def propDetails(request, prop_slug):
     check_ip = Rating.objects.filter(prop_id=prop_id).first()
     # print(check_ip)
     if request.method == "POST":
-        if request.POST['form_type'] == "myrating":
-            x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-            if x_forwarded_for:
-                ipaddress = x_forwarded_for.split(',').strip()
+        if request.POST.get('form_type') == "myrating":
+            client_ip, is_routable = get_client_ip(request)
+            # print("The IP is:- ", client_ip, is_routable)
+            if request.POST.get('score') != '':
+                score = request.POST.get('score')
             else:
-                ipaddress = request.META.get('REMOTE_ADDR')
-            score = request.POST['score']
-            get_ip = ipaddress
+                score = 0
+            get_ip = client_ip
             if check_ip is None:
                 prop_score = Rating(score=score, is_Rated = True, user_ip=get_ip, prop_id=prop_id)
                 prop_score.save()
                 messages.info(request, f'<i class="fa-solid fa-face-grin-stars fa-xl"></i> Thank You for Rating <b>{prop_id.prop_name.title()}</b>')
             else:
-                if check_ip.user_ip != ipaddress:
+                if check_ip.user_ip != client_ip:
                     prop_score = Rating(score=score, is_Rated = True, user_ip=get_ip, prop_id=prop_id)
                     prop_score.save()
                     messages.info(request, f'<i class="fa-solid fa-face-grin-stars fa-xl"></i> Thank You for Rating <b>{prop_id.prop_name.title()}</b>')
@@ -256,23 +320,25 @@ def propDetails(request, prop_slug):
             remList.append(rem)
 
     # print(RateList)
-    return render(request, 'users/propDetails.html', {'nav' : 'Properties', 'propDetail' : prop_details, 'RateList' : RateList, 'remList' : remList})
+    footerProps = Properties.objects.all().order_by('-prop_on')[:5]
+    return render(request, 'users/propDetails.html', {'nav' : 'Properties', 'propDetail' : prop_details, 'footerProps' : footerProps, 'RateList' : RateList, 'remList' : remList})
 
 def about(request):
-    return render(request, 'users/about_us.html', {'nav' : 'About-Us'})
+    footerProps = Properties.objects.all().order_by('-prop_on')[:5]
+    return render(request, 'users/about_us.html', {'nav' : 'About-Us', 'footerProps' : footerProps})
 
 def contact(request):
     if request.method=="POST":
-        name=request.POST['name']
-        contact_no=request.POST['contact_no']
-        queries=request.POST['queries']
+        name=request.POST.get('name')
+        contact_no=request.POST.get('contact_no')
+        queries=request.POST.get('queries')
         if len(name) < 2 or len(contact_no) != 10 or len(queries) < 10:
             messages.error(request, '<i class="fa-regular fa-circle-xmark"></i> <b>Sorry!</b> Invalid Submission.')
         else:
             contacts = ContactUs(name=name, contact_no=contact_no, query=queries)
             contacts.save()
             messages.success(request, '<i class="fa-regular fa-thumbs-up"></i> <b>Great!</b> Query Submitted!<br>Our team will contact you within 48 hours.')
-    return render(request, 'users/contact.html', {'nav' : 'Contact us'})
-
+    footerProps = Properties.objects.all().order_by('-prop_on')[:5]
+    return render(request, 'users/contact.html', {'nav' : 'Contact us', 'footerProps' : footerProps})
 
 # ---------- End of Frontend users views ----------

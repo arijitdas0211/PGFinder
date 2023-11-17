@@ -41,10 +41,25 @@
                         <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
                     </li>
                 </ul>
-                <div class="btn-group" role="group" aria-label="Basic example">
+                <div class="btn-group" role="group" aria-label="Property Holder Button">
+                    {% if user.is_authenticated %}
+                    <div class="btn-group">
+                        <button type="button" class="px-3 btn mybtn navbtn btn-sm">Hello, {{ request.user.first_name|title }}</button>
+                        <button type="button" class="btn mybtn navbtn btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                          <span class="visually-hidden">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="{% url 'profile' %}">My Profile</a></li>
+                          <li><a class="dropdown-item" href="{% url 'enquiry' %}">My Enquiries</a></li>
+                          <li><a class="dropdown-item" href="{% url 'ownProp' %}">My Properties</a></li>
+                          <li><a class="dropdown-item" href="{% url "logout" %}">Logout</a></li>
+                        </ul>
+                      </div>
+                    {% else %}
                     <a type="button" class="btn mybtn navbtn btn-sm" href="{% url 'ownerAuth' %}">
                         <i class="fa-solid fa-building-user"></i> Property Holder
                     </a>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -67,7 +82,7 @@
                         <!-- Content -->
                         <h4 class="fw-bold mb-4">
                             <a class="navbar-brand" href="{% url 'home' %}">
-                                <img src="{% static './img/logo1.png' %}" class="logo" alt="logo" />
+                                <img src="{% static './img/logo1.png' %}" class="logo" alt="PGFinder LOGO" />
                             </a>
                         </h4>
                         <p>
@@ -81,23 +96,15 @@
                     <div class="col-lg-3 col-md-6 mx-auto mb-4">
                         <!-- Links -->
                         <h6 class="text-uppercase fw-bold mb-4">
-                            Premium Properties
+                            Latest Properties
                         </h6>
+                        {% if footerProps %}
+                        {% for fp in footerProps %}
                         <p>
-                            <a href="" class="text-reset"></a>
+                            <a href="" class="text-reset">{{fp.prop_name}}</a>
                         </p>
-                        <p>
-                            <a href="" class="text-reset">AC Single Bed</a>
-                        </p>
-                        <p>
-                            <a href="" class="text-reset">AC Double Bed</a>
-                        </p>
-                        <p>
-                            <a href="" class="text-reset">AC Three Bed</a>
-                        </p>
-                        <p>
-                            <a href="" class="text-reset">AC Four Bed</a>
-                        </p>
+                        {% endfor %}
+                        {% endif %}
                     </div>
                     <!-- Grid column -->
 
@@ -108,16 +115,22 @@
                             Useful links
                         </h6>
                         <p>
-                            <a href="" class="text-reset">Property holder</a>
+                            <a href="{% url 'home' %}" class="text-reset">PGFinder - HOME</a>
+                        </p>
+                        {% if user.is_authenticated %}
+                        <p>
+                            <a href="{% url 'profile' %}" class="text-reset">{{request.user.first_name|upper}} - Enquiries</a>
+                        </p>
+                        {% else %}
+                        <p>
+                            <a href="{% url 'ownerAuth' %}" class="text-reset">PROPERTY HOLDER</a>
+                        </p>
+                        {% endif %}
+                        <p>
+                            <a href="{% url 'about' %}" class="text-reset">ABOUT</a>
                         </p>
                         <p>
-                            <a href="" class="text-reset">About</a>
-                        </p>
-                        <p>
-                            <a href="" class="text-reset">Properties</a>
-                        </p>
-                        <p>
-                            <a href="" class="text-reset">Contacts</a>
+                            <a href="{% url 'contact' %}" class="text-reset">CONTACT US</a>
                         </p>
                     </div>
                     <!-- Grid column -->
@@ -130,10 +143,10 @@
                             700156</p>
                         <p>
                             <i class="fas fa-envelope me-3 text-secondary"></i>
-                            pgfinder@gmail.com
+                            support@pgfinder.com
                         </p>
                         <p><i class="fas fa-phone me-3 text-secondary"></i> + 91 334 567 88</p>
-                        <p><i class="fas fa-print me-3 text-secondary"></i> + 91 334 567 89</p>
+                        {% comment %} <p><i class="fas fa-print me-3 text-secondary"></i> + 91 334 567 89</p> {% endcomment %}
                     </div>
                     <!-- Grid column -->
                 </div>
@@ -144,7 +157,7 @@
 
         <!-- Copyright -->
         <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.025);">
-            &copy; <b>{% now "Y" %}</b> Made by <b>G7</b> @TINT
+            &copy; <b>{% now "Y" %}</b> Made with <i class="fa-solid fa-heart fa-lg" style="color: #c20f0f;"></i> by <b>ARIJIT & TAMASRU</b> <span class="fw-bold">@TINT</span>
             {% comment %} <a class="text-reset fw-bold" href=""></a> {% endcomment %}
         </div>
         <!-- Copyright -->

@@ -65,9 +65,12 @@
                 <label class="text-success">(Enter comma ',' separated values)</label>
             </div>
             <div class="col-md-4">
-                <label class="mb-2 fw-medium">Allowed Gender(s)</label>
-                <input type="text" name="prop_gender" class="form-control" placeholder="male, female" required />
-                <label class="text-success">(Enter comma ',' separated values)</label>
+                <label class="mb-2 fw-medium">Select Gender</label>
+                <select name="prop_gender" class="form-select shadow-none cursor-pointer">
+                    <option selected disabled>-- Open to select --</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
             </div>
             <div class="col-md-4">
                 <label class="mb-2 fw-medium">Property Price</label>

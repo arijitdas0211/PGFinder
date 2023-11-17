@@ -29,13 +29,13 @@
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <ul class="nav">
-                        {% comment %} <li class="nav-item">
-                            <a class="nav-link fw-medium" href="">
-                                <i class="fa-solid fa-list-check"></i> Dashboard
+                        <li class="nav-item" role="group">
+                            <a type="button" class="btn mybtn btn-sm mt-1" href="{% url "home" %}">
+                                <i class="fa-solid fa-arrow-left-long"></i> Go to main site
                             </a>
-                        </li> {% endcomment %}
-                        <li class="nav-item fw-medium">
-                            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-medium dropdown-toggle" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
                                 <i class="fa-regular fa-user"></i> 
                                 {% if user.is_authenticated %}
@@ -56,11 +56,6 @@
                                 </li>
                             </ul>
                         </li>
-                        {% comment %} <li class="nav-item" role="group">
-                            <a type="button" class="btn mybtn btn-sm mt-1" href="{% url "home" %}">
-                                <i class="fa-solid fa-arrow-left-long"></i> Go back to main site
-                            </a>
-                        </li> {% endcomment %}
                     </ul>
                 </div>
             </div>

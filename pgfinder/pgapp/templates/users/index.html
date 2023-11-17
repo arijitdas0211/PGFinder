@@ -71,6 +71,16 @@
                                     <i class="fa-brands fa-sistrix fa-lg"></i>&nbsp;&nbsp; Filter Result
                                 </button>
                             </div>
+                            <div class="col-lg-12 mt-2">
+                                {% if messages %}
+                                {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                  {{ message|safe }}
+                                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                                {% endfor %}
+                                {% endif %}
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -99,9 +109,7 @@
                                     <p class="card-text card_details">
                                         {{p.prop_details|safe|truncatechars:100}}
                                     </p>
-                                    {% comment %} <a href="properties/{{ p.prop_slug }}" class="btn mybtn btn-sm w-100">
-                                        More Details <i class="fa-solid fa-arrow-right-long"></i>
-                                        </a> {% endcomment %}
+                                    
                                 </div>
                             </div>
                         </div>
@@ -124,37 +132,6 @@
                         <span>Top Rated Properties</span>
                     </h3>
                 </span>
-                <!--Our PG(s)-->
-                {% comment %} <div class="col-lg-12 mb-5">
-                    <div class="row">
-                        {% for p in ratedProps %}
-                        <div class="col-lg-3 col-md-6 mt-5">                            
-                            <div class="card custom_card shadow" onclick="window.location='properties/{{ p.prop_slug }}'">
-                                <img src="{{p.prop_img.url}}" class="card-img-top" alt="{{p.prop_img}}" />
-                                <div class="card-body">
-                                    <h5 class="card-title theme_color">{{ p.prop_name|title|truncatechars:20 }}</h5>
-                                    <h6 class="fw-normal text-primary-emphasis"><i class="fa-solid fa-location-dot"></i> {{p.prop_location|title}}</h6>
-                                    <p class="text-danger-emphasis fw-medium">
-                                        <i class="fa-solid fa-indian-rupee-sign"></i> {{ p.prop_price }} / month
-                                    </p>
-                                    <p>
-                                        {% for fac in p.facList %}
-                                            <span class="badge text-bg-success badge-sm fw-normal">{{fac|title}}</span>
-                                        {% endfor %}
-                                        <br/>
-                                        {% for pg in p.propGen %}
-                                            <span class="badge text-bg-dark badge-sm fw-normal">{{pg|upper}}</span>
-                                        {% endfor %}
-                                    </p>
-                                    <p class="card-text card_details">
-                                        {{p.prop_details|safe|truncatechars:100}}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div> {% endcomment %}
                 <div id="owl-demo" class="owl-carousel owl-theme mt-5 mb-5">
                     {% for p in ratedProps %}
                     <div class="item">

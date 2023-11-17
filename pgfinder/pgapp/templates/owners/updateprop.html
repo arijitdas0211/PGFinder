@@ -65,9 +65,17 @@
                 <label class="text-success">(Enter comma ',' separated values)</label>
             </div>
             <div class="col-md-4">
-                <label class="mb-2 fw-medium">Allowed Gender(s)</label>
-                <input type="text" name="prop_gender" value="{{ propdetail.prop_gender|title }}" class="form-control" placeholder="male, female" required />
-                <label class="text-success">(Enter comma ',' separated values)</label>
+                <label class="mb-2 fw-medium">Allowed Gender</label>
+                <!-- <input type="text" name="prop_gender" value="{{ propdetail.prop_gender|title }}" class="form-control" placeholder="male or female" required /> -->
+                <select name="prop_gender" class="form-select shadow-none cursor-pointer">
+                    {% if propdetail.prop_gender == 'male' %}
+                        <option selected value="male">Male</option>
+                        <option value="female">Female</option>
+                        {% else %}
+                        <option value="male">Male</option>
+                        <option selected value="female">Female</option>
+                    {% endif %}
+                </select>
             </div>
             <div class="col-md-4">
                 <label class="mb-2 fw-medium">Property Price</label>
