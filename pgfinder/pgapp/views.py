@@ -175,17 +175,17 @@ def home(request):
         if myLoc and myPrice and not myGen:
             prop = Properties.objects.filter(prop_location = myLoc, prop_price__lte = myPrice).order_by('prop_price')
         elif myGen and myPrice and not myLoc:
-            prop = Properties.objects.filter(prop_gender__exact=myGen, prop_price__lte = myPrice).order_by('prop_price')
+            prop = Properties.objects.filter(prop_gender=myGen, prop_price__lte = myPrice).order_by('prop_price')
         elif myGen and myLoc and not myPrice:
-            prop = Properties.objects.filter(prop_gender__in=myGen, prop_location = myLoc).order_by('prop_price')
+            prop = Properties.objects.filter(prop_gender=myGen, prop_location = myLoc).order_by('prop_price')
         elif myPrice and not myGen and not myLoc:
             prop = Properties.objects.filter(prop_price__lte = myPrice).order_by('prop_price')
         elif myGen and not myLoc and not myPrice:
-            prop = Properties.objects.filter(prop_gender__in=myGen).order_by('prop_price')
+            prop = Properties.objects.filter(prop_gender=myGen).order_by('prop_price')
         elif myLoc and not myGen and not myPrice:
             prop = Properties.objects.filter(prop_location = myLoc).order_by('prop_price')
         else:
-            prop = Properties.objects.filter(prop_gender__in=myGen, prop_location = myLoc, prop_price__lte = myPrice).order_by('prop_price')
+            prop = Properties.objects.filter(prop_gender = myGen, prop_location = myLoc, prop_price__lte = myPrice).order_by('prop_price')
 
         # print(prop)
         if not prop:
@@ -226,17 +226,17 @@ def properties(request):
         if myLoc and myPrice and not myGen:
             prop = Properties.objects.filter(prop_location = myLoc, prop_price__lte = myPrice).order_by('prop_price')
         elif myGen and myPrice and not myLoc:
-            prop = Properties.objects.filter(prop_gender__exact=myGen, prop_price__lte = myPrice).order_by('prop_price')
+            prop = Properties.objects.filter(prop_gender=myGen, prop_price__lte = myPrice).order_by('prop_price')
         elif myGen and myLoc and not myPrice:
-            prop = Properties.objects.filter(prop_gender__in=myGen, prop_location = myLoc).order_by('prop_price')
+            prop = Properties.objects.filter(prop_gender=myGen, prop_location = myLoc).order_by('prop_price')
         elif myPrice and not myGen and not myLoc:
             prop = Properties.objects.filter(prop_price__lte = myPrice).order_by('prop_price')
         elif myGen and not myLoc and not myPrice:
-            prop = Properties.objects.filter(prop_gender__in=myGen).order_by('prop_price')
+            prop = Properties.objects.filter(prop_gender=myGen).order_by('prop_price')
         elif myLoc and not myGen and not myPrice:
             prop = Properties.objects.filter(prop_location = myLoc).order_by('prop_price')
         else:
-            prop = Properties.objects.filter(prop_gender__in=myGen, prop_location = myLoc, prop_price__lte = myPrice).order_by('prop_price')
+            prop = Properties.objects.filter(prop_gender=myGen, prop_location = myLoc, prop_price__lte = myPrice).order_by('prop_price')
 
         # print(prop)
         if not prop:
