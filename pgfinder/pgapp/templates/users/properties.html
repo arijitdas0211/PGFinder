@@ -23,7 +23,17 @@
                     </h3>
                 </span>
                 <div class="col-lg-10 filter_panel bg-white py-3 mx-auto px-5 rounded">
-                    <form method="post">
+                    <div class="col-lg-12 mt-2">
+                        {% if messages %}
+                        {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                          {{ message|safe }}
+                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    <form method="post" action="#filtered-search-properties">
                         {% csrf_token %}
                         <div class="row align-items-end">
                             <div class="col-lg-3 mb-3">
@@ -55,21 +65,11 @@
                                     <i class="fa-brands fa-sistrix fa-lg"></i>&nbsp;&nbsp; Filter Result
                                 </button>
                             </div>
-                            <div class="col-lg-12 mt-2">
-                                {% if messages %}
-                                {% for message in messages %}
-                                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-                                  {{ message|safe }}
-                                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                </div>
-                                {% endfor %}
-                                {% endif %}
-                            </div>
                         </div>
                     </form>
                 </div>
                 <!--Our PG(s)-->
-                <div class="col-lg-12">
+                <div class="col-lg-12 pt-3" id="filtered-search-properties">
                     <div class="row">                    
                     {% for p in prop %}
                         <div class="col-lg-3 col-md-6 mt-5">

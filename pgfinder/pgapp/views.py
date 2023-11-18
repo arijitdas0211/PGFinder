@@ -236,14 +236,14 @@ def properties(request):
         elif myLoc and not myGen and not myPrice:
             prop = Properties.objects.filter(prop_location = myLoc).order_by('prop_price')
         else:
-            prop = Properties.objects.filter(prop_gender=myGen, prop_location = myLoc, prop_price__lte = myPrice).order_by('prop_price')
+            prop = Properties.objects.filter(prop_gender = myGen, prop_location = myLoc, prop_price__lte = myPrice).order_by('prop_price')
 
         # print(prop)
         if not prop:
-            prop = Properties.objects.all().order_by('-prop_on')
+            prop = Properties.objects.all().order_by('-prop_on')[:8]
             messages.warning(request, '<b>Sorry!</b> Filtered Property not available, instead Showing All.')
     else:
-        prop = Properties.objects.all().order_by('-prop_on')
+        prop = Properties.objects.all().order_by('-prop_on')[:8]
 
     # For Top Rated properties
     ratingIds = Rating.objects.values_list('prop_id', flat=True).distinct().order_by('-score')
@@ -255,13 +255,15 @@ def properties(request):
     propPrice = Properties.objects.values_list('prop_price', flat=True).distinct()
     # print(max(propPrice))
     footerProps = Properties.objects.all().order_by('-prop_on')[:5]
-    return render(request, 'users/properties.html', {'nav' : 'Properties', 
-                                                     'prop' : prop, 
-                                                     'footerProps' : footerProps,
-                                                     'ratedProps' : ratedProps, 
-                                                     'location' : location,
-                                                     'max_price' : max(propPrice)+1000,
-                                                     'min_price' : min(propPrice)-1000 })
+    return render(request, 'users/properties.html', 
+                  {'nav' : 'Properties', 
+                   'prop' : prop, 
+                   'footerProps' : footerProps,
+                   'ratedProps' : ratedProps, 
+                   'location' : location,
+                   'max_price' : max(propPrice)+1000,
+                   'min_price' : min(propPrice)-1000 
+                   })
 
 def propDetails(request, prop_slug):
     prop_details = Properties.objects.filter(prop_slug=prop_slug)
@@ -299,7 +301,7 @@ def propDetails(request, prop_slug):
                 if check_ip.user_ip != client_ip:
                     prop_score = Rating(score=score, is_Rated = True, user_ip=get_ip, prop_id=prop_id)
                     prop_score.save()
-                    messages.info(request, f'<i class="fa-solid fa-face-grin-stars fa-xl"></i> Thank You for Rating <b>{prop_id.prop_name.title()}</b>')
+                    messages.info(request, f'<i class="fa-solid fa-face-grin-stars fa-xl"></i> <b>Thank You</b> for Rating <b>{prop_id.prop_name.title()}</b>')
                 else:
                     messages.warning(request, f'<i class="fa-solid fa-face-smile-beam fa-xl"></i> You have already rated for <b>{prop_id.prop_name.title()}</b>')
 
