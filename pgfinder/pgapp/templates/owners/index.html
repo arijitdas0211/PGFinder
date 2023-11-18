@@ -15,6 +15,7 @@
             </tr>
         </thead>
         <tbody>
+            {% if enquiry %}
             {% for en in enquiry %}
             <tr>
                 <td>{{en.name}}</td>
@@ -23,6 +24,7 @@
                 <td>{{en.message}}</td>
             </tr>
             {% endfor %}
+            {% endif %}
         </tbody>
     </table>
 </div>

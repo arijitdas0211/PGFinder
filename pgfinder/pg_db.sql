@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 16, 2023 at 08:02 PM
+-- Generation Time: Nov 18, 2023 at 02:32 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -133,8 +133,9 @@ CREATE TABLE `auth_user` (
 
 INSERT INTO `auth_user` (`id`, `password`, `last_login`, `is_superuser`, `username`, `first_name`, `last_name`, `email`, `is_staff`, `is_active`, `date_joined`) VALUES
 (1, 'pbkdf2_sha256$390000$NJAHt6G9LVfELHPVqvDQFk$j4ibJrEylhj8bW6DykSF+pBPsiFv4K48Q0Pbr8cCir0=', NULL, 1, 'admin', '', '', '', 1, 1, '2023-11-15 14:00:10.372727'),
-(2, 'pbkdf2_sha256$390000$5zGLFCHHTkmB4PqFQBRUtp$KkKdRRmaUej5KHsOf+06wBi2lXFaSNKlvwdsMyOU0N8=', '2023-11-16 17:54:28.791030', 0, '9876543210', 'Arijit', 'Das', '', 0, 1, '2023-11-10 08:17:26.914902'),
-(3, 'pbkdf2_sha256$600000$ihTApTTjpIYwh06RKt42QH$q6uB0X6EupVdCdXNYj9goTgVUTBzrHXuD1HjnpqRRmU=', '2023-11-12 13:21:17.237085', 0, '9876543212', 'Tamasru', 'Pain', '', 0, 1, '2023-11-10 14:27:46.230821');
+(2, 'pbkdf2_sha256$390000$5zGLFCHHTkmB4PqFQBRUtp$KkKdRRmaUej5KHsOf+06wBi2lXFaSNKlvwdsMyOU0N8=', '2023-11-17 08:41:05.455913', 0, '9876543210', 'Arijit', 'Das', '', 0, 1, '2023-11-10 08:17:26.914902'),
+(3, 'pbkdf2_sha256$600000$ihTApTTjpIYwh06RKt42QH$q6uB0X6EupVdCdXNYj9goTgVUTBzrHXuD1HjnpqRRmU=', '2023-11-12 13:21:17.237085', 0, '9876543212', 'Tamasru', 'Pain', '', 0, 1, '2023-11-10 14:27:46.230821'),
+(4, 'pbkdf2_sha256$390000$8pkyCXa36PQ2ueTXCATDGz$lN1buySY7yrfoMaMZFTB9vqjap1X18vggsMxxKUnS3U=', '2023-11-17 08:48:49.576860', 0, '9836111094', 'Sarasij', 'Majumdar', '', 0, 1, '2023-11-17 08:48:32.038859');
 
 -- --------------------------------------------------------
 
@@ -330,7 +331,6 @@ INSERT INTO `pgapp_properties` (`prop_id`, `prop_name`, `prop_img`, `prop_locati
 (29, 'North East pg', 'properties/01_vujCTQ1.jpg', 'Saltlake', 'Salt Lake Bypass, AP Block, Sector V, Bidhannagar, Kolkata, West Bengal 700102', 'https://maps.app.goo.gl/oQkvwqKzxi3w6aWW9', 'Wifi, water purifier, tv, fridge', 6800, '<p>We have 2 shearing, 3 shearing and single room also. the pg located near bus tarminal and metro station and also near merket and madical shop. The curfew time of our Pg is 11pm.</p>\r\n<p>&nbsp;</p>\r\n<p>Contact:</p>\r\n<p>Ower Name: Tarun Pal&nbsp;</p>\r\n<p>Phone no: 9876543212</p>\r\n<p>&nbsp;</p>', 'female', 'north-east-pg', '2023-11-12 12:17:31.600615', 3),
 (30, 'SINHA\'S HOME', 'properties/20180626_182620_HDR.jpg', 'Karunamoyee', 'AL-50, AL Block, Sector II, Bidhannagar, Kolkata, West Bengal 700091', 'https://maps.app.goo.gl/ZBJTsJ7aNZ1HHRgN9', 'Wifi, water purifier', 7000, '<p>We have 2 shearing, 3 shearing and single room also. the pg located near bus tarminal and metro station and also near merket and madical shop. The curfew time of our Pg is 11pm.</p>\r\n<p>Meals are given 3 times a day</p>\r\n<p>&nbsp;</p>\r\n<p>Contact:</p>\r\n<p>OwerName: Arjun Dolui&nbsp;</p>\r\n<p>PhoneNo: 9876543210</p>', 'male', 'sinhas-home-male-female-pg', '2023-11-12 12:24:42.465348', 2),
 (31, 'Annie\'s Pg', 'properties/2020-10-05.jpg', 'Karunamoyee', 'CK-268, CK Block, Sector II, Bidhannagar, Kolkata, West Bengal 700091', 'https://maps.app.goo.gl/JDCw3HRYK1vuqmyc8', 'Wifi, Water Purifier, Tv, Fridge', 7000, '<p>We have 2 shearing, 3 shearing and single room also. the pg located near bus tarminal and metro station and also near merket and madical shop. The curfew time of our Pg is 11pm.</p>\r\n<p>Meals are given 3 times a day</p>\r\n<p>&nbsp;</p>\r\n<p>Contact:</p>\r\n<p>OwerName: Arjun Dolui&nbsp;</p>\r\n<p>PhoneNo: 9876543210</p>', 'Female', 'annies-pg-for-boys', '2023-11-12 12:26:10.765652', 2),
-(32, 'Shivshakti paying guest', 'properties/2022-06-08.jpg', 'Karunamoyee', 'BH-188, CK Block, Sector II, Bidhannagar, Kolkata, West Bengal 700091', 'https://maps.app.goo.gl/DqUf9i3wKwYeNdUR9', 'Wifi, water purifier, tv, fridge, cleaning service', 7000, '<p>We have 2 shearing, 3 shearing and single room also. the pg located near bus tarminal and metro station and also near merket and madical shop. The curfew time of our Pg is 11pm.</p>\r\n<p>Meals are given 3 times a day</p>\r\n<p>&nbsp;</p>\r\n<p>Contact:</p>\r\n<p>OwerName: Arjun Dolui&nbsp;</p>\r\n<p>PhoneNo: 9876543210</p>', 'Female', 'shivshakti-paying-guest-ladies-pg', '2023-11-12 12:27:16.840309', 2),
 (33, 'MAA KALI PAYING GUEST', 'properties/IMG20211114200643.jpg', 'Karunamoyee', 'Bk 366, BK Block, Sector II, Bidhannagar, Kolkata, West Bengal 700091', 'https://maps.app.goo.gl/tEzFhNaqmouT7TKG8', 'Wifi, water purifier', 7000, '<p>We have 2 shearing, 3 shearing and single room also. the pg located near bus tarminal and metro station and also near merket and madical shop. The curfew time of our Pg is 11pm.</p>\r\n<p>Meals are given 3 times a day</p>\r\n<p>&nbsp;</p>\r\n<p>Contact:</p>\r\n<p>OwerName: Arjun Dolui&nbsp;</p>\r\n<p>PhoneNo: 9876543210</p>', 'female', 'maa-kali-paying-guest', '2023-11-12 12:29:03.506762', 2),
 (34, 'Kaberi\'s Ladies PG', 'properties/IMG_20220730_140959.jpg', 'Karunamoyee', 'DL-61, DL Block, Sector II, Bidhannagar, Kolkata, West Bengal 700091', 'https://maps.app.goo.gl/V5Mzwk4nYELNMVs59', 'Wifi, water purifier', 7000, '<p>We have 2 shearing, 3 shearing and single room also. the pg located near bus tarminal and metro station and also near merket and madical shop. The curfew time of our Pg is 11pm.</p>\r\n<p>Meals are given 3 times a day</p>\r\n<p>&nbsp;</p>\r\n<p>Contact:</p>\r\n<p>OwerName: Arjun Dolui&nbsp;</p>\r\n<p>PhoneNo: 9876543210</p>', 'Female', 'kaberis-ladies-pg', '2023-11-12 12:31:11.684647', 2),
 (35, 'GANPATI PAYING GUEST', 'properties/2021-03-15.jpg', 'Newtown', 'DC Block(Newtown), Action Area I, Newtown, New Town, West Bengal 700156', 'https://maps.app.goo.gl/Pi7eL1cYSdHzPVgv7', 'Wifi, water purifier, tv, fridge', 7800, '<p>We have 2 shearing, 3 shearing and single room also. the pg located near bus tarminal and metro station and also near merket and madical shop. The curfew time of our Pg is 11pm.</p>\r\n<p>Meals are given 3 times a day</p>\r\n<p>&nbsp;</p>\r\n<p>Contact:</p>\r\n<p>OwerName: Arjun Dolui&nbsp;</p>\r\n<p>PhoneNo: 9876543210</p>', 'male', 'ganpati-paying-guest', '2023-11-12 12:33:27.300330', 2),
@@ -361,7 +361,8 @@ INSERT INTO `pgapp_properties` (`prop_id`, `prop_name`, `prop_img`, `prop_locati
 (61, 'Astarag', 'properties/2022-08-31.jpg', 'Newtown', 'DF-90, Street Number 324, Newtown, Kolkata, West Bengal 700156', 'https://maps.app.goo.gl/Eap1uQSLvj4BWb9M7', 'Wifi, water purifier, tv, fridge', 8000, '<p>We have 2 shearing, 3 shearing and single room also. the pg located near bus tarminal and metro station and also near merket and madical shop. The curfew time of our Pg is 11pm. Meals are given 3 times a day.And Spacious Garage for parking 4 wheelers and 2 wheelers.</p>', 'male', 'astarag', '2023-11-12 13:48:43.177504', 2),
 (62, 'Ramkrishna Guest House And PG', 'properties/WhatsApp_Image_2022-04-09_at_12.39.51_PM.jpeg', 'Newtown', 'BE-60 STREET NO 174 Newtown, Action Area I, 1, West Bengal 700156', 'https://maps.app.goo.gl/hwEuxGdkdqZpcbzu6', 'Wifi, water purifier, tv, fridge', 7800, '<p>We have 2 shearing, 3 shearing and single room also. the pg located near bus tarminal and metro station and also near merket and madical shop. The curfew time of our Pg is 11pm. Meals are given 3 times a day. Spacious garage For vaicals.</p>\r\n<p>&nbsp;</p>', 'male', 'ramkrishna-guest-house-and-pg', '2023-11-12 13:51:12.908235', 2),
 (63, 'Krishwiz life Pg', 'properties/2023-05-16.jpg', 'Newtown', '119, BE 20, Street No.119, BE Block(Newtown), Action Area 1B, Newtown, New Town, West Bengal 700156', 'https://maps.app.goo.gl/ighMuvM8yhE4yELc8', 'Wifi, water purifier, tv, fridge', 7800, '<p>We have 2 shearing, 3 shearing and single room also. the pg located near bus tarminal and metro station and also near merket and madical shop. The curfew time of our Pg is 11pm.</p>\r\n<p>Meals are given 3 times a day</p>\r\n<p>Contact:</p>\r\n<p>OwerName: Arjun Dolui&nbsp;</p>\r\n<p>PhoneNo: 9876543210</p>', 'female', 'krishwiz-life-pg', '2023-11-12 13:52:55.235180', 2),
-(64, 'Abc Property', 'properties/prop_tPa0jqT_LKEfQlA.jpg', 'Bhowanipore', 'Somewhere on kolkata', 'https://maps.app.goo.gl/oLEcsVxEbV4aJqPX9', 'Wifi, Security, Parking', 10250, '<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.</p>', 'male', 'abc-property', '2023-11-16 18:18:18.841358', 2);
+(64, 'Abc Property', 'properties/prop_tPa0jqT_LKEfQlA.jpg', 'Bhowanipore', 'Somewhere on kolkata', 'https://maps.app.goo.gl/oLEcsVxEbV4aJqPX9', 'Wifi, Security, Parking', 10250, '<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.</p>', 'male', 'abc-property', '2023-11-16 18:18:18.841358', 2),
+(65, 'Techno', 'properties/unnamed_2_NOT58s6.jpg', 'Narkelbagan', 'Near Mariott Hotel', 'https://maps.app.goo.gl/PZDeRkscGVD2AW3s7', 'AC, wifi, geyser', 7000, '<p>Let us serve you.</p>', 'male', 'techno', '2023-11-17 08:55:19.428874', 4);
 
 -- --------------------------------------------------------
 
@@ -407,7 +408,12 @@ CREATE TABLE `pgapp_rating` (
 --
 
 INSERT INTO `pgapp_rating` (`rate_id`, `score`, `is_Rated`, `user_ip`, `prop_id_id`) VALUES
-(5, 5, 1, '192.168.0.103', 60);
+(5, 5, 1, '192.168.0.103', 60),
+(14, 3, 1, '127.0.0.1', 64),
+(15, 0, 1, '127.0.0.1', 61),
+(16, 3, 1, '127.0.0.1', 58),
+(17, 0, 1, '127.0.0.1', 59),
+(18, 3, 1, '127.0.0.1', 62);
 
 --
 -- Indexes for dumped tables
@@ -547,7 +553,7 @@ ALTER TABLE `auth_permission`
 -- AUTO_INCREMENT for table `auth_user`
 --
 ALTER TABLE `auth_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `auth_user_groups`
@@ -595,7 +601,7 @@ ALTER TABLE `pgapp_enquire`
 -- AUTO_INCREMENT for table `pgapp_properties`
 --
 ALTER TABLE `pgapp_properties`
-  MODIFY `prop_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `prop_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT for table `pgapp_propertyholder`
@@ -607,7 +613,7 @@ ALTER TABLE `pgapp_propertyholder`
 -- AUTO_INCREMENT for table `pgapp_rating`
 --
 ALTER TABLE `pgapp_rating`
-  MODIFY `rate_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `rate_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Constraints for dumped tables

@@ -13,9 +13,16 @@ from ipware import get_client_ip
 def ownerHome(request):
     if request.user.is_authenticated:
         user = request.user
-        user_id = user.id  
-        prop_id = Properties.objects.filter(user_id=user_id).first()
-        prop_query = Enquire.objects.filter(prop_id=prop_id).order_by('-enquire_on')
+        userId = user.id  
+        propId = Properties.objects.values_list('prop_id', flat=True).filter(user_id=userId)
+        prop_query = []
+        for pd in propId:
+            myquery = Enquire.objects.filter(prop_id=pd).order_by('enquire_on').order_by('enquire_on')
+            if myquery:
+                prop_query.append(myquery.first())
+            else:
+                continue
+        # print("The enquiry list:- ",prop_query)
     return render(request, 'owners/index.html', {'nav' : 'enquiry', 'enquiry' : prop_query})
 
 @login_required
@@ -240,10 +247,10 @@ def properties(request):
 
         # print(prop)
         if not prop:
-            prop = Properties.objects.all().order_by('-prop_on')[:8]
+            prop = Properties.objects.all().order_by('-prop_on')
             messages.warning(request, '<b>Sorry!</b> Filtered Property not available, instead Showing All.')
     else:
-        prop = Properties.objects.all().order_by('-prop_on')[:8]
+        prop = Properties.objects.all().order_by('-prop_on')
 
     # For Top Rated properties
     ratingIds = Rating.objects.values_list('prop_id', flat=True).distinct().order_by('-score')
