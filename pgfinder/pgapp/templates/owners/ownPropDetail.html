@@ -21,6 +21,9 @@
     </div>
     <div class="card-body row">
         <div class="col-lg-6 col-md-6">
+            <p class="mb-3">
+                <b>Status:- </b>{% if pd.is_active == 'true' %}Active{% else %}Inactive{% endif %}
+            </p>
             {% if pd.prop_img %}
             <img src="{{ pd.prop_img.url }}" class="img-fluid border border-dark-subtle shadow" alt="product-details_image" />
             {% endif %}

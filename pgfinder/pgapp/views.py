@@ -40,8 +40,9 @@ def addOwnProp(request):
             prop_price = request.POST.get("prop_price")
             prop_gender = request.POST.get("prop_gender")
             prop_details = request.POST.get("prop_details")
+            is_active = request.POST.get("status")
             
-            myprop = Properties(prop_name=prop_name, prop_img=prop_img, prop_location=prop_location, prop_address=prop_address, prop_gmap=prop_gmap, prop_facilities=prop_facilities, prop_price=prop_price, prop_gender=prop_gender, prop_details=prop_details, user_id=user_id)
+            myprop = Properties(prop_name=prop_name, prop_img=prop_img, prop_location=prop_location, prop_address=prop_address, prop_gmap=prop_gmap, prop_facilities=prop_facilities, prop_price=prop_price, prop_gender=prop_gender, prop_details=prop_details, is_active = is_active, user_id=user_id)
             myprop.save()
             # messages.success(request, f'<i class="fa-regular fa-thumbs-up"></i> <b>Great! {prop_name}</b> - property has been created!')
             return redirect('ownProp')
@@ -72,8 +73,8 @@ def updateOwnProp(request, prop_slug):
         propId.prop_price = request.POST.get("prop_price")
         propId.prop_gender = request.POST.get("prop_gender")
         propId.prop_details = request.POST.get("prop_details")
+        propId.is_active = request.POST.get("status")
         propId.save()
-        
         propdetail = Properties.objects.filter(prop_slug=prop_slug).first()
         messages.success(request, f'<i class="fa-regular fa-thumbs-up"></i> <b>Great!</b> Property - <b>{propdetail.prop_name}</b> has been updated!')
     return render(request, 'owners/updateprop.html', {'nav' : 'updateProp', 'propdetail' : propdetail})
@@ -149,12 +150,12 @@ def ownerProfile(request):
                 messages.success(request, '<i class="fa-regular fa-thumbs-up"></i> <b>Great!</b> Your profile has been saved!')
             else:
                 PropertyHolder.objects.filter(user_id=user_id).update(
-                        owner_aadhaar = request.POST("aadhaar"),
-                        owner_pan = request.POST("pan"),
-                        owner_state = request.POST("state"),
-                        owner_city = request.POST("city"),
-                        owner_pin = request.POST("pin"),
-                        owner_address = request.POST("address")
+                        owner_aadhaar = request.POST.get("aadhaar"),
+                        owner_pan = request.POST.get("pan"),
+                        owner_state = request.POST.get("state"),
+                        owner_city = request.POST.get("city"),
+                        owner_pin = request.POST.get("pin"),
+                        owner_address = request.POST.get("address")
                     )
                 messages.success(request, '<i class="fa-regular fa-thumbs-up"></i> <b>Great!</b> Your profile has been updated!')
         owner = PropertyHolder.objects.filter(user_id=user_id).first()
@@ -180,37 +181,40 @@ def home(request):
         # print("Selected Filters are:- ", myGen, " | ", myLoc, " | ", myPrice)
 
         if myLoc and myPrice and not myGen:
-            prop = Properties.objects.filter(prop_location = myLoc, prop_price__lte = myPrice).order_by('prop_price')
+            prop = Properties.objects.filter(prop_location = myLoc, prop_price__lte = myPrice, is_active='true').order_by('prop_price')
         elif myGen and myPrice and not myLoc:
-            prop = Properties.objects.filter(prop_gender=myGen, prop_price__lte = myPrice).order_by('prop_price')
+            prop = Properties.objects.filter(prop_gender=myGen, prop_price__lte = myPrice, is_active='true').order_by('prop_price')
         elif myGen and myLoc and not myPrice:
-            prop = Properties.objects.filter(prop_gender=myGen, prop_location = myLoc).order_by('prop_price')
+            prop = Properties.objects.filter(prop_gender=myGen, prop_location = myLoc, is_active='true').order_by('prop_price')
         elif myPrice and not myGen and not myLoc:
-            prop = Properties.objects.filter(prop_price__lte = myPrice).order_by('prop_price')
+            prop = Properties.objects.filter(prop_price__lte = myPrice, is_active='true').order_by('prop_price')
         elif myGen and not myLoc and not myPrice:
-            prop = Properties.objects.filter(prop_gender=myGen).order_by('prop_price')
+            prop = Properties.objects.filter(prop_gender=myGen, is_active='true').order_by('prop_price')
         elif myLoc and not myGen and not myPrice:
-            prop = Properties.objects.filter(prop_location = myLoc).order_by('prop_price')
+            prop = Properties.objects.filter(prop_location = myLoc, is_active='true').order_by('prop_price')
         else:
-            prop = Properties.objects.filter(prop_gender = myGen, prop_location = myLoc, prop_price__lte = myPrice).order_by('prop_price')
+            prop = Properties.objects.filter(prop_gender = myGen, prop_location = myLoc, prop_price__lte = myPrice, is_active='true').order_by('prop_price')
 
         # print(prop)
         if not prop:
-            prop = Properties.objects.all().order_by('-prop_on')[:8]
+            prop = Properties.objects.filter(is_active='true').order_by('-prop_on')[:8]
             messages.warning(request, '<b>Sorry!</b> Filtered Property not available, instead Showing All.')
     else:
-        prop = Properties.objects.all().order_by('-prop_on')[:8]
+        prop = Properties.objects.filter(is_active='true').order_by('-prop_on')[:8]
 
     # For Top Rated properties
-    ratingIds = Rating.objects.values_list('prop_id', flat=True).distinct().order_by('-score')
+    ratingIds = Rating.objects.values_list('prop_id', flat=True).filter(score__gte=3).distinct().order_by('-score')
     ratedProps = []
     for i in ratingIds:
-        ratedProps.append(Properties.objects.filter(prop_id=i).first())
+        ratedprop = Properties.objects.filter(prop_id=i, is_active='true').first()
+        if ratedprop is not None:
+            ratedProps.append(ratedprop)
+    # print(ratedProps)
     
     location = Properties.objects.values_list('prop_location', flat=True).distinct().order_by('-prop_location')
     propPrice = Properties.objects.values_list('prop_price', flat=True).distinct()
     # print(max(propPrice))
-    footerProps = Properties.objects.all().order_by('-prop_on')[:5]
+    footerProps = Properties.objects.filter(is_active='true').order_by('-prop_on')[:5]
     return render(request, 'users/index.html', 
                 {
                     'nav' : 'Home', 
@@ -231,32 +235,34 @@ def properties(request):
         # print("Selected Filters are:- ", myGen, " | ", myLoc, " | ", myPrice)
 
         if myLoc and myPrice and not myGen:
-            prop = Properties.objects.filter(prop_location = myLoc, prop_price__lte = myPrice).order_by('prop_price')
+            prop = Properties.objects.filter(prop_location = myLoc, prop_price__lte = myPrice, is_active='true').order_by('prop_price')
         elif myGen and myPrice and not myLoc:
-            prop = Properties.objects.filter(prop_gender=myGen, prop_price__lte = myPrice).order_by('prop_price')
+            prop = Properties.objects.filter(prop_gender=myGen, prop_price__lte = myPrice, is_active='true').order_by('prop_price')
         elif myGen and myLoc and not myPrice:
-            prop = Properties.objects.filter(prop_gender=myGen, prop_location = myLoc).order_by('prop_price')
+            prop = Properties.objects.filter(prop_gender=myGen, prop_location = myLoc, is_active='true').order_by('prop_price')
         elif myPrice and not myGen and not myLoc:
-            prop = Properties.objects.filter(prop_price__lte = myPrice).order_by('prop_price')
+            prop = Properties.objects.filter(prop_price__lte = myPrice, is_active='true').order_by('prop_price')
         elif myGen and not myLoc and not myPrice:
-            prop = Properties.objects.filter(prop_gender=myGen).order_by('prop_price')
+            prop = Properties.objects.filter(prop_gender=myGen, is_active='true').order_by('prop_price')
         elif myLoc and not myGen and not myPrice:
-            prop = Properties.objects.filter(prop_location = myLoc).order_by('prop_price')
+            prop = Properties.objects.filter(prop_location = myLoc, is_active='true').order_by('prop_price')
         else:
-            prop = Properties.objects.filter(prop_gender = myGen, prop_location = myLoc, prop_price__lte = myPrice).order_by('prop_price')
+            prop = Properties.objects.filter(prop_gender = myGen, prop_location = myLoc, prop_price__lte = myPrice, is_active='true').order_by('prop_price')
 
         # print(prop)
         if not prop:
-            prop = Properties.objects.all().order_by('-prop_on')
+            prop = Properties.objects.filter(is_active='true').order_by('-prop_on')
             messages.warning(request, '<b>Sorry!</b> Filtered Property not available, instead Showing All.')
     else:
-        prop = Properties.objects.all().order_by('-prop_on')
+        prop = Properties.objects.filter(is_active='true').order_by('-prop_on')
 
     # For Top Rated properties
-    ratingIds = Rating.objects.values_list('prop_id', flat=True).distinct().order_by('-score')
+    ratingIds = Rating.objects.values_list('prop_id', flat=True).filter(score__gte=3).distinct().order_by('-score')
     ratedProps = []
     for i in ratingIds:
-        ratedProps.append(Properties.objects.filter(prop_id=i).first())
+        ratedprop = Properties.objects.filter(prop_id=i, is_active='true').first()
+        if ratedprop is not None:
+            ratedProps.append(ratedprop)
     
     location = Properties.objects.values_list('prop_location', flat=True).distinct().order_by('-prop_location')
     propPrice = Properties.objects.values_list('prop_price', flat=True).distinct()

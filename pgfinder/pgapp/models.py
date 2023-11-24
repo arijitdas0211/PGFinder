@@ -18,6 +18,7 @@ class Properties(models.Model):
     prop_price = models.BigIntegerField()
     prop_details = models.TextField()
     prop_gender = models.CharField(max_length=50)
+    is_active = models.CharField(max_length=5, default='true')
     prop_slug = AutoSlugField(populate_from='prop_name')
     prop_on = models.DateTimeField(default=now)
     user = models.ForeignKey(User, on_delete=models.CASCADE)

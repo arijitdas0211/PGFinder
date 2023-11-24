@@ -19,38 +19,39 @@
         </thead>
         <tbody>
         {% for p in prop %}
-            <tr>
-                <td>{{ p.prop_name|title|truncatechars:20 }}</td>
-                <td>{{ p.prop_address|capfirst|truncatechars:25 }}</td>
-                <td>{{ p.prop_price|safe }}</td>
-                <td>
-                    <a class="btn btn-success bg-success bg-gradient btn-sm" href="{{ p.prop_slug }}">View</a>
-                    <a class="btn btn-dark bg-dark bg-gradient btn-sm" href="{% url 'updatePropDetail' p.prop_slug %}">Edit</a>
-                    <a type="button" data-bs-toggle="modal" href="#modal-{{ p.prop_id }}" data-bs-target="#deleteModal-{{ p.prop_id }}" class="btn btn-danger bg-danger bg-gradient btn-sm">Delete</a>
-                </td>
-                <!-- Modal -->
-                <div class="modal fade modal-dialog-scrollable" id="deleteModal-{{ p.prop_id }}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h3 class="modal-title fs-5 text-danger-emphasis" id="exampleModalLabel">Warning!!</h3>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <b>Are you sure want to delete the property?</b><br/>
-                                <p class="text-danger-emphasis fw-medium">
-                                    You are going to delete all data and enquiries related to "<u>{{ p.prop_name }}</u>"
-                                </p>
-                            </div>
-                            <div class="modal-footer">
-                                <a href="{% url 'deleteprop' p.prop_id %}" type="button" class="btn btn-danger bg-danger bg-gradient btn-sm">Yes, Delete</a>
-                                <button type="button" class="btn btn-secondary bg-secondary bg-gradient btn-sm" data-bs-dismiss="modal">No, Cancel</button>
-                            </div>
+        <tr>
+            <td>{% if p.is_active == 'true' %}Active{% else %}Inactive{% endif %}</td>
+            <td>{{ p.prop_name|title|truncatechars:20 }}</td>
+            <td>{{ p.prop_address|capfirst|truncatechars:25 }}</td>
+            <td>{{ p.prop_price|safe }}</td>
+            <td>
+                <a class="btn btn-success bg-success bg-gradient btn-sm" href="{{ p.prop_slug }}">View</a>
+                <a class="btn btn-dark bg-dark bg-gradient btn-sm" href="{% url 'updatePropDetail' p.prop_slug %}">Edit</a>
+                <a type="button" data-bs-toggle="modal" href="#modal-{{ p.prop_id }}" data-bs-target="#deleteModal-{{ p.prop_id }}" class="btn btn-danger bg-danger bg-gradient btn-sm">Delete</a>
+            </td>
+            <!-- Modal -->
+            <div class="modal fade modal-dialog-scrollable" id="deleteModal-{{ p.prop_id }}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title fs-5 text-danger-emphasis" id="exampleModalLabel">Warning!!</h3>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <b>Are you sure want to delete the property?</b><br/>
+                            <p class="text-danger-emphasis fw-medium">
+                                You are going to delete all data and enquiries related to "<u>{{ p.prop_name }}</u>"
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="{% url 'deleteprop' p.prop_id %}" type="button" class="btn btn-danger bg-danger bg-gradient btn-sm">Yes, Delete</a>
+                            <button type="button" class="btn btn-secondary bg-secondary bg-gradient btn-sm" data-bs-dismiss="modal">No, Cancel</button>
                         </div>
                     </div>
                 </div>
-                <!-- Modal End -->
-            </tr>
+            </div>
+            <!-- Modal End -->
+        </tr>
         {% endfor %}
         </tbody>
     </table>

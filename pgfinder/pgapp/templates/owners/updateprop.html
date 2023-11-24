@@ -77,7 +77,19 @@
                     {% endif %}
                 </select>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-2">
+                <label class="mb-2 fw-medium">Property Status</label>
+                <select name="status" class="form-select shadow-none cursor-pointer">
+                    {% if propdetail.is_active == 'true' %}
+                        <option selected value="true">Active</option>
+                        <option value="false">Inactive</option>
+                        {% else %}
+                        <option value="true">Active</option>
+                        <option selected value="false">Inactive</option>
+                    {% endif %}
+                </select>
+            </div>
+            <div class="col-md-2">
                 <label class="mb-2 fw-medium">Property Price</label>
                 <input type="text" name="prop_price" value="{{ propdetail.prop_price }}" class="form-control" required />
             </div>

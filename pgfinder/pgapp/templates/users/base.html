@@ -101,7 +101,7 @@
                         {% if footerProps %}
                         {% for fp in footerProps %}
                         <p>
-                            <a href="" class="text-reset">{{fp.prop_name}}</a>
+                            <a href="{% url 'propDetails' fp.prop_slug  %}" class="text-reset">{{fp.prop_name}}</a>
                         </p>
                         {% endfor %}
                         {% endif %}

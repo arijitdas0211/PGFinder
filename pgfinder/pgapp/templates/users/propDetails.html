@@ -33,7 +33,7 @@
           <!-- Taking User Rating -->
           <div class="col-lg-6 col-md-6 pt-4">
             <div class="float-end">
-              <!-- {{avgRate}} -->
+              <!-- avgRate -->
               {% if RateList %}
               {% for i in RateList %}
               <i class="fa-solid fa-star fa-xl" value="{{i}}" style="color: #ff9500;"></i>
@@ -44,6 +44,7 @@
               <i class="fa-regular fa-star fa-xl" value="{{n}}" style="color: #ff9500;"></i>
               {% endfor %}
               {% endif %}
+              <!-- End of avgRate -->
             </div>
           </div>
           <!-- End of Taking User Rating -->
