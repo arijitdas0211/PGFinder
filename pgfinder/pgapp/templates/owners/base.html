@@ -65,6 +65,9 @@
             <div class="row">
                 <div class="col-lg-2 col-md-2 sidebar">
                     <ul class="sidenav">
+                        {% comment %} <li class="nav-item">
+                            <a class="nav-link" href="{% url "dashboard" %}"><i class="fa-solid fa-chart-line"></i> Dashboard <i class="fa-solid fa-chevron-right space_end"></i></a>
+                        </li> {% endcomment %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url "enquiry" %}"><i class="fa-solid fa-envelope-open-text"></i> Enquiries <i class="fa-solid fa-chevron-right space_end"></i></a>
                         </li>
@@ -75,6 +78,7 @@
                 </div>
                 <div class="col-lg-10 col-md-10 main_content">
                     {% block index %}{% endblock index %}
+                    {% comment %} {% block dashboard %}{% endblock dashboard %} {% endcomment %}
                     {% block ownerprofile %}{% endblock ownerprofile %}
                     {% block ownerProperties %}{% endblock ownerProperties %}
                     {% block ownPropDetail %}{% endblock ownPropDetail %}

@@ -1,0 +1,15 @@
+{% comment %} {% extends "owners/base.html" %}
+{% block dashboard %}
+{% if user.is_authenticated %}
+
+<div class="container card_box_1 mt-5">
+    <div class="card-header">
+        <h5>Dashboard</h5>
+    </div>
+    <div class="card-body">
+        <img src='my_plot.png' alt="chart" />
+    </div>
+</div>
+
+{% endif %}
+{% endblock dashboard %} {% endcomment %}

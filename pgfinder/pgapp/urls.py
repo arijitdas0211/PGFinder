@@ -3,6 +3,7 @@ from pgapp import views
 
 urlpatterns = [
     # Frontend owners/property holder's views
+    # path('property-holder/dashboard/', views.ownerDashboard, name='dashboard'),
     path('property-holder/dashboard/all-enquiries/', views.ownerHome, name='enquiry'),
     path('property-holder/dashboard/my-property-listings/', views.ownerProperties, name='ownProp'),
     path('property-holder/dashboard/add-property/', views.addOwnProp, name='addprop'),

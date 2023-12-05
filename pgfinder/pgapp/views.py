@@ -8,7 +8,7 @@ import os
 from django.db.models import Avg
 from ipware import get_client_ip
 
-# owners/property holder's views
+
 @login_required
 def ownerHome(request):
     if request.user.is_authenticated:
@@ -223,7 +223,7 @@ def home(request):
                     'ratedProps' : ratedProps, 
                     'location' : location,
                     'max_price' : max(propPrice)+1000,
-                    'min_price' : min(propPrice)-1000
+                    'min_price' : min(propPrice)            
                 })
 
 def properties(request):
@@ -275,7 +275,7 @@ def properties(request):
                    'ratedProps' : ratedProps, 
                    'location' : location,
                    'max_price' : max(propPrice)+1000,
-                   'min_price' : min(propPrice)-1000 
+                   'min_price' : min(propPrice) 
                    })
 
 def propDetails(request, prop_slug):
