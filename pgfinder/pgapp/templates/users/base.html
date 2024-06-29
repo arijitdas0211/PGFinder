@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-{% load static %}
+    {% load static %}
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,6 +17,7 @@
     <script src="{% static './js/jquery.min.js' %}"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
 </head>
+
 <body>
     <!-- navbar -->
     <nav class="navbar navbar-expand-lg bg-body-tertiary" id="navscroll">
@@ -23,7 +25,8 @@
             <a class="navbar-brand" href="{% url 'home' %}">
                 <img src="{% static './img/logo.png' %}" class="logo" alt="logo" />
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
+                aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
@@ -44,17 +47,19 @@
                 <div class="btn-group" role="group" aria-label="Property Holder Button">
                     {% if user.is_authenticated %}
                     <div class="btn-group">
-                        <button type="button" class="px-3 btn mybtn navbtn btn-sm">Hello, {{ request.user.first_name|title }}</button>
-                        <button type="button" class="btn mybtn navbtn btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-                          <span class="visually-hidden">Toggle Dropdown</span>
+                        <button type="button" class="px-3 btn mybtn navbtn btn-sm">Hello, {{
+                            request.user.first_name|title }}</button>
+                        <button type="button" class="btn mybtn navbtn btn-sm dropdown-toggle dropdown-toggle-split"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="visually-hidden">Toggle Dropdown</span>
                         </button>
                         <ul class="dropdown-menu">
-                          <li><a class="dropdown-item" href="{% url 'profile' %}">My Profile</a></li>
-                          <li><a class="dropdown-item" href="{% url 'enquiry' %}">My Enquiries</a></li>
-                          <li><a class="dropdown-item" href="{% url 'ownProp' %}">My Properties</a></li>
-                          <li><a class="dropdown-item" href="{% url "logout" %}">Logout</a></li>
+                            <li><a class="dropdown-item" href="{% url 'profile' %}">My Profile</a></li>
+                            <li><a class="dropdown-item" href="{% url 'enquiry' %}">My Enquiries</a></li>
+                            <li><a class="dropdown-item" href="{% url 'ownProp' %}">My Properties</a></li>
+                            <li><a class="dropdown-item" href="{% url " logout" %}">Logout</a></li>
                         </ul>
-                      </div>
+                    </div>
                     {% else %}
                     <a type="button" class="btn mybtn navbtn btn-sm" href="{% url 'ownerAuth' %}">
                         <i class="fa-solid fa-building-user"></i> Property Holder
@@ -119,7 +124,8 @@
                         </p>
                         {% if user.is_authenticated %}
                         <p>
-                            <a href="{% url 'profile' %}" class="text-reset">{{request.user.first_name|upper}} - Enquiries</a>
+                            <a href="{% url 'profile' %}" class="text-reset">{{request.user.first_name|upper}} -
+                                Enquiries</a>
                         </p>
                         {% else %}
                         <p>
@@ -142,11 +148,17 @@
                         <p><i class="fas fa-home me-3 text-secondary"></i> Salt Lake, Sector v, Bidhannogor, Kolkata,
                             700156</p>
                         <p>
-                            <i class="fas fa-envelope me-3 text-secondary"></i>
-                            support@pgfinder.com
+                            <a href="mailto:+9133456788" class="text-dark">
+                                <i class="fas fa-envelope me-3 text-secondary"></i>
+                                support@pgfinder.com
+                            </a>
                         </p>
-                        <p><i class="fas fa-phone me-3 text-secondary"></i> + 91 334 567 88</p>
-                        {% comment %} <p><i class="fas fa-print me-3 text-secondary"></i> + 91 334 567 89</p> {% endcomment %}
+
+                        <p>
+                            <a href="tel:+9133456788" class="text-dark">
+                                <i class="fas fa-phone me-3 text-secondary"></i>
+                                +91 334 567 88</a>
+                        </p>
                     </div>
                     <!-- Grid column -->
                 </div>
@@ -157,27 +169,29 @@
 
         <!-- Copyright -->
         <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.025);">
-            &copy; <b>{% now "Y" %}</b> Made with <i class="fa-solid fa-heart fa-lg" style="color: #c20f0f;"></i> by <b>ARIJIT & TAMASRU</b> <span class="fw-bold">@TINT</span>
+            &copy; <b>{% now "Y" %}</b> Made with <i class="fa-solid fa-heart fa-lg" style="color: #c20f0f;"></i> by
+            <b>ARIJIT & TAMASRU</b> <span class="fw-bold">@TINT</span>
             {% comment %} <a class="text-reset fw-bold" href=""></a> {% endcomment %}
         </div>
         <!-- Copyright -->
     </footer>
     <!-- End Footer -->
-<!-- JavaScript -->
-<script src="{% static './js/bootstrap.bundle.min.js' %}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.32/owl.carousel.min.js"></script>
-<script>
-   $(document).ready(function () {
-        $(window).scroll(function () {
-            if ($(document).scrollTop() > 300) {
-                $("#navscroll").addClass("shadow");
-            } else {
-                $("#navscroll").removeClass("shadow");
-            }
+    <!-- JavaScript -->
+    <script src="{% static './js/bootstrap.bundle.min.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.32/owl.carousel.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(window).scroll(function () {
+                if ($(document).scrollTop() > 300) {
+                    $("#navscroll").addClass("shadow");
+                } else {
+                    $("#navscroll").removeClass("shadow");
+                }
+            });
         });
-    });
-</script>
-<script src="{% static './js/main.js' %}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+    </script>
+    <script src="{% static './js/main.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
 </body>
+
 </html>
