@@ -18,4 +18,32 @@ PGFinder is an online web application for finding Paying Guest accommodations fo
 ### HOME PAGE
 <hr />
 <img src="Assets/HomePage.png" alt="Home" style="width: 70%" />
+<hr />
 
+### Property Listing with Property Filters
+<hr />
+<img src="Assets/Properties_Filtered_Search.png" alt="Prop_Filter" style="width: 70%" />
+
+### Property Details
+<hr />
+<img src="Assets/Property_StarRating_posted.png" alt="Prop_Details" style="width: 70%" />
+
+### User Star Rating
+<hr />
+<img src="Assets/Property_StarRating.png" alt="Prop_Star_Rating" style="width: 70%" />
+
+### About Us
+<hr />
+<img src="Assets/About-us.png" alt="About Us" style="width: 70%" />
+
+### Contact Us
+<hr />
+<img src="Assets/Contact-us.png" alt="Contact Us" style="width: 70%" />
+
+### Property Holder Registration and Login
+<hr />
+<img src="Assets/PropertHolder_Authentication.png" alt="Prop_Holder_Registration_Login" style="width: 70%" />
+
+### Property Holder Registration and Login
+<hr />
+<img src="Assets/PropertHolder_Authentication.png" alt="Prop_Holder_Registration_Login" style="width: 70%" />
