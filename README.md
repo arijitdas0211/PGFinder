@@ -38,7 +38,7 @@ PGFinder is an online web application for finding Paying Guest accommodations fo
 
 ### Contact Us
 <hr />
-<img src="Assets/Contact-us.png" alt="Contact Us" style="width: 70%" />
+<img src="Assets/Contact-Us.png" alt="Contact Us" style="width: 70%" />
 
 ### Property Holder Registration and Login
 <hr />
