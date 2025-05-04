@@ -1,6 +1,6 @@
 # PGFinder
 
-PGFinder is an online web application for finding Paying Guest accommodations for users like - students or professionals or an individual, who is intended to relocate to a new place. PG Finder aims to simplify the search for suitable PG options by providing a user-friendly interface and filter search functionalities.  It uses MySQL as the database backend.
+PGFinder is a web application for finding Paying Guest accommodations for users like - students or professionals or an individual, who is intended to relocate to a new place. PG Finder aims to simplify the search for suitable PG options by providing a user-friendly interface and filter search functionalities.  It uses MySQL as the database backend.
 
 ![PGFinder Logo](Assets/logo1.png)
 
