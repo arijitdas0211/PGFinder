@@ -74,23 +74,59 @@ datatables.forEach(datatable => {
 
 // User star rating
 $(document).ready(function () {
-  var elements = ['#one', '#two', '#three', '#four', '#five'];
-  var x = 0;
+  a = $('#one')
+  b = $('#two')
+  c = $('#three')
+  d = $('#four')
+  e = $('#five')
+  x = 0
 
-  $(elements.join(',')).click(function () {
-    var index = elements.indexOf('#' + $(this).attr('id'));
-    x = index + 1;
-
-    for (var i = 0; i < elements.length; i++) {
-      $(elements[i]).css("color", i <= index ? "#FFBB00" : "initial");
-    }
-  });
-
+  $(a).click(function () {
+    $(a).css("color", "#FFBB00")
+    $(b).css("color", "initial")
+    $(c).css("color", "initial")
+    $(d).css("color", "initial")
+    $(e).css("color", "initial")
+    x = 1
+  })
+  $(b).click(function () {
+    $(a).css("color", "#FFBB00")
+    $(b).css("color", "#FFBB00")
+    $(c).css("color", "initial")
+    $(d).css("color", "initial")
+    $(e).css("color", "initial")
+    x = 2
+  })
+  $(c).click(function () {
+    $(a).css("color", "#FFBB00")
+    $(b).css("color", "#FFBB00")
+    $(c).css("color", "#FFBB00")
+    $(d).css("color", "initial")
+    $(e).css("color", "initial")
+    x = 3
+  })
+  $(d).click(function () {
+    $(a).css("color", "#FFBB00")
+    $(b).css("color", "#FFBB00")
+    $(c).css("color", "#FFBB00")
+    $(d).css("color", "#FFBB00")
+    $(e).css("color", "initial")
+    x = 4
+  })
+  $(e).click(function () {
+    $(a).css("color", "#FFBB00")
+    $(b).css("color", "#FFBB00")
+    $(c).css("color", "#FFBB00")
+    $(d).css("color", "#FFBB00")
+    $(e).css("color", "#FFBB00")
+    x = 5
+  })
   $('.val').click(function () {
-    $('#val').val(x); // Assuming you want to set the value of an input with id="val"
-  });
+    // console.log(x)
+    var score = x
+    $('#val').attr("value", score);
+  })
 });
-
 
 // OWL Carousel
 $(document).ready(function () {
