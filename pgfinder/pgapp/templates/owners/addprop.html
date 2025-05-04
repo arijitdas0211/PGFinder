@@ -5,16 +5,11 @@
     tinymce.init({
         selector: '#mytextarea',
         inline: false,
-        height: 500,
+        height: 300,
         resize: false,
         hidden_input: false
     });
 </script>
-<style>
-    .tox.tox-silver-sink.tox-tinymce-aux {
-        display: none;
-    }
-</style>
 <div class="container card_box_1 mt-3">
     <div class="card-header">
         <h5>Add Property</h5>
@@ -56,13 +51,13 @@
             <div class="col-md-4">
                 <label class="mb-2 fw-medium">Paste Property Google Maps Location Link</label>
                 <input type="text" name="prop_gmap" class="form-control" required />
-                <a href="https://www.google.com/maps" class="text-primary" target="_blank">Click me to open Google
+                <a href="https://www.google.com/maps" class="text-primary" target="_blank">Click to open Google
                     Maps</a>
             </div>
             <div class="col-md-4">
                 <label class="mb-2 fw-medium">Property Facilities</label>
                 <input type="text" name="prop_facilities" class="form-control" placeholder="wifi, security" required />
-                <label class="text-success">(Enter comma ',' separated values)</label>
+                <label class="text-success">(Enter comma (,) separated values)</label>
             </div>
             <div class="col-md-4">
                 <label class="mb-2 fw-medium">Select Gender</label>
@@ -85,7 +80,7 @@
             </div>
             <div class="col-md-12">
                 <label class="mb-2 fw-medium">Enter Property Details</label>
-                <textarea id="mytextarea" name="prop_details" class="form-control"></textarea>
+                <textarea id="" name="prop_details" class="form-control"></textarea>
             </div>
             
             <div class="col-12">
