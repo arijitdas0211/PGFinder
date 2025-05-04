@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% extends "owners/base.html" %}
 {% block addprop %}
 {% if user.is_authenticated %}
@@ -105,4 +106,113 @@
     }
 </script>
 {% endif %}
+=======
+{% extends "owners/base.html" %}
+{% block addprop %}
+{% if user.is_authenticated %}
+<script>
+    tinymce.init({
+        selector: '#mytextarea',
+        inline: false,
+        height: 300,
+        resize: false,
+        hidden_input: false
+    });
+</script>
+<div class="container card_box_1 mt-3">
+    <div class="card-header">
+        <h5>Add Property</h5>
+    </div>
+    <div class="container pt-2">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message|safe }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+    <div class="reg_form ps-4 pe-4">
+        {% if user.is_authenticated %}
+        <form class="row g-3" method="POST" enctype="multipart/form-data">
+
+            {% csrf_token %}
+            <div class="col-md-4">
+                <label class="mb-2 fw-medium">Property Name</label>
+                <input type="text" name="prop_name" class="form-control" required />
+            </div>
+            <div class="col-md-4">
+                <label class="mb-2 fw-medium">Property Image</label>
+                <input type="file" name="prop_img" class="form-control" onchange="readURL(this);" required />
+            </div>
+            <div class="col-md-4 pt-2">
+                <img id="preview" src="" alt="Upload Image to check Preview..." height="100px" />
+            </div>
+            <div class=" col-md-4">
+                <label class="mb-2 fw-medium">Property Location</label>
+                <input type="text" name="prop_location" class="form-control" required />
+            </div>
+            <div class="col-md-4">
+                <label class="mb-2 fw-medium">Property Address</label>
+                <input type="text" name="prop_address" class="form-control" required />
+            </div>
+            <div class="col-md-4">
+                <label class="mb-2 fw-medium">Paste Property Google Maps Location Link</label>
+                <input type="text" name="prop_gmap" class="form-control" required />
+                <a href="https://www.google.com/maps" class="text-primary" target="_blank">Click to open Google
+                    Maps</a>
+            </div>
+            <div class="col-md-4">
+                <label class="mb-2 fw-medium">Property Facilities</label>
+                <input type="text" name="prop_facilities" class="form-control" placeholder="wifi, security" required />
+                <label class="text-success">(Enter comma (,) separated values)</label>
+            </div>
+            <div class="col-md-4">
+                <label class="mb-2 fw-medium">Select Gender</label>
+                <select name="prop_gender" class="form-select shadow-none cursor-pointer">
+                    <option selected disabled>-- Open to select --</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label class="mb-2 fw-medium">Property Status</label>
+                <select name="status" class="form-select shadow-none cursor-pointer">
+                    <option selected value="true">Active</option>
+                    <option value="false">Inactive</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label class="mb-2 fw-medium">Property Price</label>
+                <input type="text" name="prop_price" class="form-control" required />
+            </div>
+            <div class="col-md-12">
+                <label class="mb-2 fw-medium">Enter Property Details</label>
+                <textarea id="" name="prop_details" class="form-control"></textarea>
+            </div>
+            
+            <div class="col-12">
+                <button class="btn mybtn" type="submit">Add Property</button>
+            </div>
+        </form>
+        {% endif %}
+    </div>
+</div>
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#preview')
+                    .attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+{% endif %}
+>>>>>>> 2eca7777a88013ca13c378e37888e8be0e1ba493
 {% endblock addprop %}
